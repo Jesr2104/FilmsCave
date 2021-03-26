@@ -1,2 +1,6 @@
+include ':usecases'
+include ':framework'
+include ':domain'
+include ':data'
 include ':app'
 rootProject.name = "FilmsCave"
