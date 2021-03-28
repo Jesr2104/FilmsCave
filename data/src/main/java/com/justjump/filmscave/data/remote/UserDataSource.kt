@@ -15,8 +15,9 @@ class UserDataSource: RemoteUserDataSource {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.User.trim(), user.Password.trim())
             .addOnCompleteListener { task ->
                 successfullyUserCreate = task.isSuccessful
-        }
+            }
+            .addOnFailureListener { task ->
 
-        return successfullyUserCreate
+            }
     }
 }

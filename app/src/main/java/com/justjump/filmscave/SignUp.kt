@@ -1,20 +1,19 @@
 package com.justjump.filmscave
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.justjump.filmscave.data.remote.UserDataSource
-import com.justjump.filmscave.data.repositories.users.UsersRepository
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
-import com.justjump.filmscave.domain.users.UserValidation
-import com.justjump.filmscave.usecases.SignUpUser
+import com.justjump.filmscave.viewmodel.SignUpViewModel
 
 class SignUp : Fragment() {
 
     private lateinit var binding: FragmentSignUpBinding
+    private lateinit var signUpViewModel:SignUpViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,29 +21,20 @@ class SignUp : Fragment() {
 
         binding = FragmentSignUpBinding.inflate(layoutInflater)
 
-        binding.buttonSingUp.setOnClickListener {
+        // initial the viewModel
+        signUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
 
-            // usecases call
-
-            if(binding.dataEmail.text!!.isNotEmpty() && binding.dataPassword.text!!.isNotEmpty()){
-
-                val newUser = UserValidation(
-                    binding.dataEmail.text.toString(),
-                    binding.dataPassword.text.toString()
-                )
-
-                val result = SignUpUser(UsersRepository(
-                    UserDataSource()
-                )).invoke(newUser)
-
-                if (result){
-                    Toast.makeText(requireContext(), "has been created successfully", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "An error has occurred", Toast.LENGTH_SHORT).show()
-                }
-
+        //********************************************************//
+        //          Event of SignUp User
+        //********************************************************//
+        binding.buttonSingUp.setOnClickListener{
+            if (binding.dataEmail.text!!.isNotEmpty() && binding.dataPassword.text!!.isNotEmpty()){
+                signUpViewModel.userValue.value = binding.dataName.text.toString()
+                signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
+                signUpViewModel.signUpUser()
             } else {
                 // massage to tell to de user one of fields is empty
+                Toast.makeText(requireContext(), "Some required fields are empty", Toast.LENGTH_SHORT).show()
             }
         }
 
