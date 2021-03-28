@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "872848905940",
+    "firebase_url": "https://filmscave-2104.firebaseio.com",
+    "project_id": "filmscave-2104",
+    "storage_bucket": "filmscave-2104.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872848905940:android:635c3c63b907a18de3cd41",
+        "android_client_info": {
+          "package_name": "com.justjump.filmscave.data"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872848905940-7o570ak5jvm1egtanstlm8rq6aqlta4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2L3cvddprMlfw9-8nXHbm3BsJ_379MAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872848905940-7o570ak5jvm1egtanstlm8rq6aqlta4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

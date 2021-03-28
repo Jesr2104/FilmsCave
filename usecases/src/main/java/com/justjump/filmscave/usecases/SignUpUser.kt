@@ -1,13 +1,10 @@
-package com.justjump.filmscave.usecases.user_auth
+package com.justjump.filmscave.usecases
 
-class SignUpUser() {
+import com.justjump.filmscave.data.repositories.users.UsersRepository
+import com.justjump.filmscave.domain.users.UserValidation
 
-    suspend fun invoke(
-        name: String,
-        user: String,
-        password: String
-    ): Boolean {
+class SignUpUser(private val usersRepository: UsersRepository) {
 
-        return true
-    }
+    // this usecases will be in charge to create the new users
+    fun invoke(user: UserValidation): Boolean = usersRepository.signUpUser(user)
 }
