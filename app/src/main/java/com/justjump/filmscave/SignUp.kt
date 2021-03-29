@@ -30,25 +30,35 @@ class SignUp : Fragment(), SignUpViewModel.Message {
         //********************************************************//
         binding.buttonSingUp.setOnClickListener{
             if (binding.switchAcceptPolicies.isChecked){
-                if (binding.dataEmail.text!!.isNotEmpty() && binding.dataPassword.text!!.isNotEmpty()){
-                    if (binding.dataPassword.text.toString().validatePassword()){
-                        signUpViewModel.userValue.value = binding.dataEmail.text.toString()
-                        signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
+                if (binding.dataEmail.text!!.isNotEmpty() && binding.dataPassword.text!!.isNotEmpty() && binding.dataUserName.text!!.isNotEmpty()){
+                    signUpViewModel.userNameValue.value = binding.dataUserName.text.toString()
+                    if(signUpViewModel.validateUsername()){
+                        if (binding.dataPassword.text.toString().validatePassword()){
+                            signUpViewModel.emailValue.value = binding.dataEmail.text.toString()
+                            signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
 
-                        binding.loading.visibility = View.VISIBLE
-                        signUpViewModel.signUpUser(this)
-                    } else {
-                        Toast.makeText(requireContext(), "The password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                            binding.loading.visibility = View.VISIBLE
+                            signUpViewModel.signUpUser(this)
+                        } else {
+                            Toast.makeText(requireContext(), "The password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
-                    // massage to tell to de user one of fields is empty
+                    // message to tell to the user one of fields is empty
                     Toast.makeText(requireContext(), "Some required fields are empty", Toast.LENGTH_SHORT).show()
                 }
-
             } else {
                 Toast.makeText(requireContext(), "You must accept the policies before proceeding", Toast.LENGTH_SHORT).show()
             }
         }
+
+        //********************************************************//
+        //          Event to go back
+        //********************************************************//
+        binding.buttonBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
         return binding.root
     }
 

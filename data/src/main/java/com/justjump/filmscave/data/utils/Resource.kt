@@ -1,3 +1,5 @@
+package com.justjump.filmscave.data.utils
+
 data class Resource<out T>(val status: Status, val codeException: String?) {
 
     companion object {

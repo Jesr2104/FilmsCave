@@ -1,13 +1,12 @@
 package com.justjump.filmscave.data.remote
 
-import Resource
+import com.justjump.filmscave.data.utils.Resource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
-import com.justjump.filmscave.data.repositories.users.RemoteUserDataSource
+import com.justjump.filmscave.data.interfaces.RemoteUserDataSource
 import com.justjump.filmscave.domain.users.UserValidation
-
 
 class UserDataSource: RemoteUserDataSource {
 
@@ -33,4 +32,14 @@ class UserDataSource: RemoteUserDataSource {
             }
     return messageCreateUser
     }
+
+//    override fun signUpGoogle(user: UserValidation): LiveData<Resource<String>> {
+//        val googleConfig: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken("872848905940-7o570ak5jvm1egtanstlm8rq6aqlta4s.apps.googleusercontent.com")
+//            .requestEmail()
+//            .build()
+//
+//        val googleClient: GoogleSignInClient = GoogleSignIn.getClient(this,googleConfig)
+//
+//    }
 }

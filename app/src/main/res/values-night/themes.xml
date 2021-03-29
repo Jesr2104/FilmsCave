@@ -13,7 +13,7 @@
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/palette_black</item>
 
-        <!-- Status bar color. -->
+        <!-- com.justjump.filmscave.data.utils.Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
         <!-- Customize your theme here. -->

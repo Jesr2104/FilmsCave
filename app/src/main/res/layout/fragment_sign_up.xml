@@ -46,7 +46,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/name"
+            android:hint="@string/username"
             app:hintTextColor="@color/palette_white"
             android:textColorHint="@color/palette_white"
             app:boxCornerRadiusBottomEnd="@dimen/circle_radius"
@@ -61,7 +61,7 @@
             app:layout_constraintWidth_percent="0.6">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/data_name"
+                android:id="@+id/data_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"

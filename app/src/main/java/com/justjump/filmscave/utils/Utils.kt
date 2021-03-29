@@ -1,3 +1,3 @@
 package com.justjump.filmscave.utils
 
-fun String.validatePassword() = this.length > 6
+fun String.validatePassword() = this.length >= 6

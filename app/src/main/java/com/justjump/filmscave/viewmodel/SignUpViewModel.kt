@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.justjump.filmscave.SignUp
 import com.justjump.filmscave.data.remote.UserDataSource
 import com.justjump.filmscave.data.repositories.users.UsersRepository
+import com.justjump.filmscave.data.utils.Status
 import com.justjump.filmscave.domain.users.UserValidation
 import com.justjump.filmscave.usecases.SignUpUser
 
@@ -20,7 +21,8 @@ class SignUpViewModel() : ViewModel() {
         fun showMessage(message: String)
     }
 
-    var userValue = MutableLiveData<String>()
+    var userNameValue = MutableLiveData<String>()
+    var emailValue = MutableLiveData<String>()
     var passwordValue = MutableLiveData<String>()
 
     fun signUpUser(signUp: SignUp) = SignUpUser(UsersRepository(UserDataSource()))
@@ -28,6 +30,15 @@ class SignUpViewModel() : ViewModel() {
             when (it.status) {
                 Status.SUCCESS -> {
                     signUp.showMessage(ID0_MESSAGE)
+                    //TODO ("here we need to create the room repository with all the data of the user")
+                    // the information por the user need to be like:
+                    // UserName:
+                    // Email:
+                    // Avatar:
+                    // Friends:
+                    // List:
+                    // BlockedUser:
+                    // Setting:
                 }
                 Status.ERROR -> {
                     when (it.codeException){
@@ -37,8 +48,20 @@ class SignUpViewModel() : ViewModel() {
 
 
     private fun createUserValidation() =
-        UserValidation(userValue.value.toString(), passwordValue.value.toString())
+        UserValidation(emailValue.value.toString(), passwordValue.value.toString())
 
+    private fun saveTokenNewUserLogin(){
+        //TODO("this function need to save the user login of the new user in a sharePreferences")
+        //TODO("will be call when the user do a sign up successful, for keep user login, with the new user created")
+    }
+
+    fun validateUsername(): Boolean {
+        //TODO ("Implement this function")
+        // what we need to check:
+        // case1: If the string is correctly to be a username
+        // case2: If the username is free to be used
+        return true
+    }
 }
 
 /*
