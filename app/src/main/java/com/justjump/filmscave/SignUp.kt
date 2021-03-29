@@ -8,9 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
+import com.justjump.filmscave.utils.validatePassword
 import com.justjump.filmscave.viewmodel.SignUpViewModel
 
-class SignUp : Fragment() {
+class SignUp : Fragment(), SignUpViewModel.Message {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var signUpViewModel:SignUpViewModel
@@ -22,22 +23,37 @@ class SignUp : Fragment() {
         binding = FragmentSignUpBinding.inflate(layoutInflater)
 
         // initial the viewModel
-        signUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+        signUpViewModel = ViewModelProvider(this).get(SignUpViewModel()::class.java)
 
         //********************************************************//
         //          Event of SignUp User
         //********************************************************//
         binding.buttonSingUp.setOnClickListener{
-            if (binding.dataEmail.text!!.isNotEmpty() && binding.dataPassword.text!!.isNotEmpty()){
-                signUpViewModel.userValue.value = binding.dataName.text.toString()
-                signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
-                signUpViewModel.signUpUser()
+            if (binding.switchAcceptPolicies.isChecked){
+                if (binding.dataEmail.text!!.isNotEmpty() && binding.dataPassword.text!!.isNotEmpty()){
+                    if (binding.dataPassword.text.toString().validatePassword()){
+                        signUpViewModel.userValue.value = binding.dataEmail.text.toString()
+                        signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
+
+                        binding.loading.visibility = View.VISIBLE
+                        signUpViewModel.signUpUser(this)
+                    } else {
+                        Toast.makeText(requireContext(), "The password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    // massage to tell to de user one of fields is empty
+                    Toast.makeText(requireContext(), "Some required fields are empty", Toast.LENGTH_SHORT).show()
+                }
+
             } else {
-                // massage to tell to de user one of fields is empty
-                Toast.makeText(requireContext(), "Some required fields are empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "You must accept the policies before proceeding", Toast.LENGTH_SHORT).show()
             }
         }
-
         return binding.root
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        binding.loading.visibility = View.INVISIBLE
     }
 }

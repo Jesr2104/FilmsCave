@@ -126,8 +126,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
+                android:inputType="textPassword"
                 android:textStyle="bold"
-                android:textColor="@color/palette_white"/>
+                android:textColor="@color/palette_white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,6 +139,7 @@
             android:checked="false"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:theme="@style/switch_color_theme"
             app:layout_constraintStart_toStartOf="@+id/password_textInputLayout"
             app:layout_constraintTop_toBottomOf="@+id/password_textInputLayout" />
 
@@ -204,6 +206,17 @@
             app:layout_constraintEnd_toEndOf="@+id/text_sign_social"
             app:layout_constraintStart_toEndOf="@+id/iconGoogle"
             app:layout_constraintTop_toBottomOf="@+id/text_sign_social" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            android:indeterminateDrawable="@drawable/bg_progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iconFacebook" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

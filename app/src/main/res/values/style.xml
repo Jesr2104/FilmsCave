@@ -14,4 +14,9 @@
         <item name="android:textSize">25sp</item>
     </style>
 
+    <style name="switch_color_theme" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/main_dark_blue</item>
+    </style>
+
 </resources>
