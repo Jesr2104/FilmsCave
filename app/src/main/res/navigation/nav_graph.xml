@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/startApplication"
-        android:name="com.justjump.filmscave.StartApplication"
+        android:name="com.justjump.filmscave.MainFragment"
         android:label="fragment_start_application"
         tools:layout="@layout/fragment_start_application" >
         <action
@@ -30,12 +30,12 @@
 
     <fragment
         android:id="@+id/signUp"
-        android:name="com.justjump.filmscave.SignUp"
+        android:name="com.justjump.filmscave.users.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/login"
-        android:name="com.justjump.filmscave.Login"
+        android:name="com.justjump.filmscave.users.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
 </navigation>

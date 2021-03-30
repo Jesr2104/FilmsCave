@@ -9,7 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.justjump.filmscave.databinding.FragmentStartApplicationBinding
 
-class StartApplication : Fragment() {
+class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentStartApplicationBinding
     private lateinit var navController: NavController

@@ -1,4 +1,4 @@
-package com.justjump.filmscave
+package com.justjump.filmscave.users
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.justjump.filmscave.databinding.FragmentLoginBinding
 
-class Login() : Fragment() {
+class LoginFragment() : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
 

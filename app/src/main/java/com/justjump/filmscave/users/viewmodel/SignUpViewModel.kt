@@ -1,15 +1,22 @@
-package com.justjump.filmscave.viewmodel
+package com.justjump.filmscave.users.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.justjump.filmscave.SignUp
-import com.justjump.filmscave.data.remote.UserDataSource
-import com.justjump.filmscave.data.repositories.users.UsersRepository
-import com.justjump.filmscave.data.utils.Status
-import com.justjump.filmscave.domain.users.UserValidation
-import com.justjump.filmscave.usecases.SignUpUser
+import com.justjump.filmscave.users.SignUpFragment
+import com.justjump.filmscave.data.datasources.users.local.LocalUserConfigDataSources
+import com.justjump.filmscave.data.datasources.users.remote.SignUpDataSource
+import com.justjump.filmscave.data.repositories.users.LocalUserConfigRepository
+import com.justjump.filmscave.data.repositories.users.SignUpRepository
+import com.justjump.filmscave.data._utils.Status
+import com.justjump.filmscave.domain.users.UserStructureDataModel
+import com.justjump.filmscave.domain.users.UserValidationDataModel
+import com.justjump.filmscave.framework.room.users.RoomDataSource
+import com.justjump.filmscave.usecases.users.LocalUserConfigUseCases
+import com.justjump.filmscave.usecases.users.SignUpUseCases
+import java.util.ArrayList
 
-class SignUpViewModel() : ViewModel() {
+class SignUpViewModel : ViewModel() {
 
     companion object{
         var ID0_MESSAGE = "The user has been created successfully."
@@ -25,30 +32,36 @@ class SignUpViewModel() : ViewModel() {
     var emailValue = MutableLiveData<String>()
     var passwordValue = MutableLiveData<String>()
 
-    fun signUpUser(signUp: SignUp) = SignUpUser(UsersRepository(UserDataSource()))
+    fun signUpUser(signUpFragment: SignUpFragment, appContext: Context) = SignUpUseCases(SignUpRepository(SignUpDataSource()))
         .invoke(createUserValidation()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    signUp.showMessage(ID0_MESSAGE)
-                    //TODO ("here we need to create the room repository with all the data of the user")
-                    // the information por the user need to be like:
-                    // UserName:
-                    // Email:
-                    // Avatar:
-                    // Friends:
-                    // List:
-                    // BlockedUser:
-                    // Setting:
+                    val result = LocalUserConfigUseCases(LocalUserConfigRepository(LocalUserConfigDataSources(
+                        RoomDataSource()
+                    ))).invoke(appContext,createLocalStructure())
+                    if (result){
+                        signUpFragment.showMessage(ID0_MESSAGE)
+                    }
                 }
                 Status.ERROR -> {
                     when (it.codeException){
-                        "ERROR_INVALID_EMAIL" ->{ signUp.showMessage(ID1_MESSAGE) }
-                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUp.showMessage(ID2_MESSAGE) }
+                        "ERROR_INVALID_EMAIL" ->{ signUpFragment.showMessage(ID1_MESSAGE) }
+                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(ID2_MESSAGE) }
                     }}}}
 
-
     private fun createUserValidation() =
-        UserValidation(emailValue.value.toString(), passwordValue.value.toString())
+        UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
+
+    private fun createLocalStructure() =
+        UserStructureDataModel(
+            userNameValue.value.toString(),
+            emailValue.value.toString(),
+            "",
+            ArrayList<String>(),
+            ArrayList<String>(),
+            ArrayList<String>(),
+            ""
+        )
 
     private fun saveTokenNewUserLogin(){
         //TODO("this function need to save the user login of the new user in a sharePreferences")
@@ -64,7 +77,7 @@ class SignUpViewModel() : ViewModel() {
     }
 }
 
-/*
+/*      Firebase -> Exceptions
 ("ERROR_INVALID_CUSTOM_TOKEN", "The custom token format is incorrect. Please check the documentation."));
 ("ERROR_CUSTOM_TOKEN_MISMATCH", "The custom token corresponds to a different audience."));
 ("ERROR_INVALID_CREDENTIAL", "The supplied auth credential is malformed or has expired."));

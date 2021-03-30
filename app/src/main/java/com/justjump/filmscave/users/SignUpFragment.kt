@@ -1,4 +1,4 @@
-package com.justjump.filmscave
+package com.justjump.filmscave.users
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
-import com.justjump.filmscave.utils.validatePassword
-import com.justjump.filmscave.viewmodel.SignUpViewModel
+import com.justjump.filmscave._utils.validatePassword
+import com.justjump.filmscave.users.viewmodel.SignUpViewModel
 
-class SignUp : Fragment(), SignUpViewModel.Message {
+class SignUpFragment : Fragment(), SignUpViewModel.Message {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var signUpViewModel:SignUpViewModel
@@ -38,7 +38,7 @@ class SignUp : Fragment(), SignUpViewModel.Message {
                             signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
 
                             binding.loading.visibility = View.VISIBLE
-                            signUpViewModel.signUpUser(this)
+                            signUpViewModel.signUpUser(this, requireActivity().applicationContext)
                         } else {
                             Toast.makeText(requireContext(), "The password must be at least 6 characters", Toast.LENGTH_SHORT).show()
                         }
