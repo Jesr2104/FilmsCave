@@ -4,15 +4,12 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.justjump.filmscave.users.SignUpFragment
-import com.justjump.filmscave.data.datasources.users.local.LocalUserConfigDataSources
 import com.justjump.filmscave.data.datasources.users.remote.SignUpDataSource
-import com.justjump.filmscave.data.repositories.users.LocalUserConfigRepository
 import com.justjump.filmscave.data.repositories.users.SignUpRepository
 import com.justjump.filmscave.data._utils.Status
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import com.justjump.filmscave.domain.users.UserValidationDataModel
 import com.justjump.filmscave.framework.room.users.RoomDataSource
-import com.justjump.filmscave.usecases.users.LocalUserConfigUseCases
 import com.justjump.filmscave.usecases.users.SignUpUseCases
 import java.util.ArrayList
 
@@ -32,16 +29,11 @@ class SignUpViewModel : ViewModel() {
     var emailValue = MutableLiveData<String>()
     var passwordValue = MutableLiveData<String>()
 
-    fun signUpUser(signUpFragment: SignUpFragment, appContext: Context) = SignUpUseCases(SignUpRepository(SignUpDataSource()))
-        .invoke(createUserValidation()).observeForever{
+    fun signUpUser(signUpFragment: SignUpFragment, appContext: Context) = SignUpUseCases(SignUpRepository(SignUpDataSource(RoomDataSource())))
+        .invoke(appContext, createUserValidation(),createLocalStructure()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    val result = LocalUserConfigUseCases(LocalUserConfigRepository(LocalUserConfigDataSources(
-                        RoomDataSource()
-                    ))).invoke(appContext,createLocalStructure())
-                    if (result){
-                        signUpFragment.showMessage(ID0_MESSAGE)
-                    }
+                    signUpFragment.showMessage(ID0_MESSAGE)
                 }
                 Status.ERROR -> {
                     when (it.codeException){

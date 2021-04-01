@@ -2,18 +2,19 @@ package com.justjump.filmscave.framework.room.users
 
 import androidx.room.*
 
+
 @Dao
 interface UsersDao {
 
     @Query("SELECT * FROM UserRoom")
     fun getUser(): UserRoom
 
-    @Insert
-    fun insertUser(user: Unit): Boolean
+    @Query("DELETE FROM UserRoom")
+    fun delete()
 
-    @Delete
-    fun deleteUser(): Boolean
+    @Insert
+    fun insertUser(user: UserRoom)
 
     @Update
-    fun updateUser(user: Unit): Boolean
+    fun updateUser(user: UserRoom)
 }

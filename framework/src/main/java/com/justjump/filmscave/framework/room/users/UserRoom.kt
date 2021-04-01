@@ -8,7 +8,8 @@ data class UserRoom (
     val email: String,
     val userName: String,
     val avatar: String,
-    val friends: ArrayList<String>,
-    val blockedUsers: ArrayList<String>,
-    val setting: ArrayList<String>
+//    val customsList: String,
+//    val friends: String,
+//    val blockedUsers: String,
+    val setting: String
 )

@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import com.justjump.filmscave.R
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave._utils.validatePassword
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
@@ -15,15 +18,22 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var signUpViewModel:SignUpViewModel
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View {
 
         binding = FragmentSignUpBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // initial the viewModel
         signUpViewModel = ViewModelProvider(this).get(SignUpViewModel()::class.java)
+        navController = view.findNavController()
 
         //********************************************************//
         //          Event of SignUp User
@@ -39,6 +49,8 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
 
                             binding.loading.visibility = View.VISIBLE
                             signUpViewModel.signUpUser(this, requireActivity().applicationContext)
+
+                            navController.navigate(R.id.action_signUp_to_homeFragment)
                         } else {
                             Toast.makeText(requireContext(), "The password must be at least 6 characters", Toast.LENGTH_SHORT).show()
                         }
@@ -58,8 +70,6 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
         binding.buttonBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-
-        return binding.root
     }
 
     override fun showMessage(message: String) {
