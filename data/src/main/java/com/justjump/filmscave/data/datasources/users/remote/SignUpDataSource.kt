@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.firestore.FirebaseFirestore
 import com.justjump.filmscave.data._interfaces.RoomFramework
 import com.justjump.filmscave.data._utils.Resource
 import com.justjump.filmscave.data._interfaces.SignUpIDataSource
@@ -19,22 +20,30 @@ class SignUpDataSource(private val roomFramework: RoomFramework) : SignUpIDataSo
     override fun signUp( appContext: Context, userValidationDataModel: UserValidationDataModel,
         userStructureDataModel: UserStructureDataModel ): LiveData<Resource<String>> {
 
+        val db = FirebaseFirestore.getInstance()
+
         // create user on fireBase
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(
             userValidationDataModel.User.trim(),
             userValidationDataModel.Password.trim()
         )
             .addOnCompleteListener { task ->
+
                 task.addOnFailureListener {
                     val errorCode = (task.exception as FirebaseAuthException?)!!.errorCode
                     messageCreateUser.value = Resource.error(errorCode)
                 }
-
                 task.addOnSuccessListener {
                     //if the user is create in room correctly we send back the data
                     if (roomFramework.insertNewUser(appContext,userStructureDataModel)){
-                        //TODO if missing as well create the user on firebase service
-
+                        //TODO ("if missing as well create the user on firebase service")
+                            db.collection("user").document(userStructureDataModel.email).set(
+                                hashMapOf(
+                                    "username" to userStructureDataModel.userName,
+                                    "avatar" to userStructureDataModel.avatar,
+                                    "setting" to userStructureDataModel.setting,
+                                )
+                            )
                         messageCreateUser.value = Resource.success()
                     }
                 }

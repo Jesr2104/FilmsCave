@@ -50,7 +50,6 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
                             binding.loading.visibility = View.VISIBLE
                             signUpViewModel.signUpUser(this, requireActivity().applicationContext)
 
-                            navController.navigate(R.id.action_signUp_to_homeFragment)
                         } else {
                             Toast.makeText(requireContext(), "The password must be at least 6 characters", Toast.LENGTH_SHORT).show()
                         }
@@ -72,8 +71,12 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
         }
     }
 
-    override fun showMessage(message: String) {
+    override fun showMessage(message: String, success: Boolean) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         binding.loading.visibility = View.INVISIBLE
+
+        if (success){
+            navController.navigate(R.id.action_signUp_to_homeFragment)
+        }
     }
 }

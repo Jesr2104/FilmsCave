@@ -22,7 +22,7 @@ class SignUpViewModel : ViewModel() {
     }
 
     interface Message{
-        fun showMessage(message: String)
+        fun showMessage(message: String, success: Boolean)
     }
 
     var userNameValue = MutableLiveData<String>()
@@ -33,12 +33,12 @@ class SignUpViewModel : ViewModel() {
         .invoke(appContext, createUserValidation(),createLocalStructure()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    signUpFragment.showMessage(ID0_MESSAGE)
+                    signUpFragment.showMessage(ID0_MESSAGE,true)
                 }
                 Status.ERROR -> {
                     when (it.codeException){
-                        "ERROR_INVALID_EMAIL" ->{ signUpFragment.showMessage(ID1_MESSAGE) }
-                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(ID2_MESSAGE) }
+                        "ERROR_INVALID_EMAIL" ->{ signUpFragment.showMessage(ID1_MESSAGE, false) }
+                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(ID2_MESSAGE, false) }
                     }}}}
 
     private fun createUserValidation() =

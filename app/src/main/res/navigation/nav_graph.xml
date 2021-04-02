@@ -5,27 +5,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/startApplication">
+    app:startDestination="@id/mainActivity">
 
     <fragment
-        android:id="@+id/startApplication"
+        android:id="@+id/mainActivity"
         android:name="com.justjump.filmscave.MainFragment"
         android:label="fragment_start_application"
-        tools:layout="@layout/fragment_start_application" >
+        tools:layout="@layout/fragment_main">
+
         <action
-            android:id="@+id/action_startApplication_to_signUp"
+            android:id="@+id/action_mainActivity_to_signUp"
             app:destination="@id/signUp"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
         <action
-            android:id="@+id/action_startApplication_to_login"
+            android:id="@+id/action_mainActivity_to_login"
             app:destination="@id/login"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_mainActivity_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
     </fragment>
 
     <fragment
@@ -33,6 +43,7 @@
         android:name="com.justjump.filmscave.users.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
+
         <action
             android:id="@+id/action_signUp_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -40,15 +51,19 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     </fragment>
+
     <fragment
         android:id="@+id/login"
         android:name="com.justjump.filmscave.users.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.justjump.filmscave.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
 </navigation>

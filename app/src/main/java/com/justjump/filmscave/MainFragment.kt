@@ -1,39 +1,48 @@
 package com.justjump.filmscave
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.justjump.filmscave.databinding.FragmentStartApplicationBinding
+import com.justjump.filmscave.databinding.FragmentMainBinding
+import com.justjump.filmscave._viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentStartApplicationBinding
+    private lateinit var binding: FragmentMainBinding
+    private lateinit var mainViewModel: MainViewModel
     private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle? ): View {
 
-        binding = FragmentStartApplicationBinding.inflate(layoutInflater)
-
+        binding = FragmentMainBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mainViewModel = ViewModelProvider(this).get(MainViewModel()::class.java)
         navController = view.findNavController()
 
+        // this function check if the user is already login before.
+        if (mainViewModel.checkPreviewSession(requireContext())){
+            navController.navigate(R.id.action_mainActivity_to_homeFragment)
+        }
+
         binding.signUpButton.setOnClickListener {
-            navController.navigate(R.id.action_startApplication_to_signUp)
+            navController.navigate(R.id.action_mainActivity_to_signUp)
         }
 
         binding.logInButton.setOnClickListener {
-            navController.navigate(R.id.action_startApplication_to_login)
+            navController.navigate(R.id.action_mainActivity_to_login)
         }
     }
 }
