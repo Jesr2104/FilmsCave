@@ -5,47 +5,40 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.justjump.filmscave.data._interfaces.LogInIDataSource
 import com.justjump.filmscave.data._interfaces.RoomFrameworkDataSource
 import com.justjump.filmscave.data._utils.Resource
-import com.justjump.filmscave.data._interfaces.SignUpIDataSource
-import com.justjump.filmscave.domain.users.UserStructureDataModel
 import com.justjump.filmscave.domain.users.UserValidationDataModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class SignUpDataSource(private val roomFrameworkDataSource: RoomFrameworkDataSource) : SignUpIDataSource {
+class LogInDataSource(private val roomFrameworkDataSource: RoomFrameworkDataSource): LogInIDataSource {
 
     private var messageCreateUser = MutableLiveData<Resource<String>>()
     private val usersFirebase = UsersFirebaseDataSource()
 
-    // this is the implementation of the signUp user on the server of data bases
-    override fun signUp( appContext: Context, userValidationDataModel: UserValidationDataModel,
-        userStructureDataModel: UserStructureDataModel ): LiveData<Resource<String>> {
+    override fun logIn( appContext: Context, userValidationDataModel: UserValidationDataModel
+        ): LiveData<Resource<String>> {
 
-        // create user on fireBase
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(
             userValidationDataModel.email.trim(),
             userValidationDataModel.password.trim()
         )
             .addOnCompleteListener { task ->
-
                 task.addOnFailureListener {
                     val errorCode = (task.exception as FirebaseAuthException?)!!.errorCode
                     messageCreateUser.value = Resource.error(errorCode)
                 }
                 task.addOnSuccessListener {
-                    //if the user is create in room correctly we send back the data
-                    if (roomFrameworkDataSource.insertNewUser(appContext,userStructureDataModel) && usersFirebase.insertUser(userStructureDataModel)){
+
+                    GlobalScope.launch(Dispatchers.Main) {
+                        val data = usersFirebase.getUser(userValidationDataModel.email)
+                        roomFrameworkDataSource.insertNewUser(appContext,data)
                         messageCreateUser.value = Resource.success()
                     }
                 }
             }
         return messageCreateUser
-    }
-
-    override fun signUpGoogle(userValidationDataModel: UserValidationDataModel): LiveData<Resource<String>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun signUpFacebook(userValidationDataModel: UserValidationDataModel): LiveData<Resource<String>> {
-        TODO("Not yet implemented")
     }
 }

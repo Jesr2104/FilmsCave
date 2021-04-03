@@ -11,14 +11,10 @@ abstract class AppDataBase: RoomDatabase() {
     companion object {
         private const val NAME_DATABASE = "LocalUserDB"
 
-        fun getDatabase(context: Context): AppDataBase {
-            return Room.databaseBuilder(
-                context,
-                AppDataBase::class.java,
-                NAME_DATABASE
-            ).allowMainThreadQueries().build()
-        }
+        fun getDatabase(context: Context) =
+            Room.databaseBuilder( context,
+            AppDataBase::class.java,
+            NAME_DATABASE ).allowMainThreadQueries().build()
     }
-
     abstract fun usersDao(): UsersDao
 }

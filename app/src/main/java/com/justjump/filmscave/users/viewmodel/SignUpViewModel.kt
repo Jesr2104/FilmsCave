@@ -55,11 +55,6 @@ class SignUpViewModel : ViewModel() {
             ""
         )
 
-    private fun saveTokenNewUserLogin(){
-        //TODO("this function need to save the user login of the new user in a sharePreferences")
-        //TODO("will be call when the user do a sign up successful, for keep user login, with the new user created")
-    }
-
     fun validateUsername(): Boolean {
         //TODO ("Implement this function")
         // what we need to check:

@@ -7,13 +7,11 @@ import com.justjump.filmscave.data._interfaces.SignUpIDataSource
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import com.justjump.filmscave.domain.users.UserValidationDataModel
 
-class SignUpRepository(private val SignUpIDataSource: SignUpIDataSource) {
+class SignUpRepository(private val signUpIDataSource: SignUpIDataSource) {
 
     fun signUpUser( appContext: Context, userValidationDataModel: UserValidationDataModel,
         userStructureDataModel: UserStructureDataModel ): LiveData<Resource<String>> {
 
-        // we call the function to create the user on the server Firebase
-        // this function will be implement in data
-        return SignUpIDataSource.signUp(appContext, userValidationDataModel, userStructureDataModel)
+        return signUpIDataSource.signUp(appContext, userValidationDataModel, userStructureDataModel)
     }
 }

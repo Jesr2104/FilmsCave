@@ -1,7 +1,9 @@
 package com.justjump.filmscave.framework.room.users
 
-import androidx.room.*
-
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface UsersDao {
@@ -9,7 +11,8 @@ interface UsersDao {
     @Query("SELECT * FROM UserRoom")
     fun getUser(): UserRoom
 
-    @Query("DELETE FROM UserRoom")
+    // this function clear the table User Room
+    @Query(value = "DELETE FROM UserRoom")
     fun delete()
 
     @Insert
