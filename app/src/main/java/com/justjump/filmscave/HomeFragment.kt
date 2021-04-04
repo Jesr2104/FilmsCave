@@ -8,7 +8,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.justjump.filmscave.data.datasources.users.local.UserDataSource
+import com.justjump.filmscave.data.datasources.users.local.UsersLocalDataSource
 import com.justjump.filmscave.databinding.FragmentHomeBinding
 import com.justjump.filmscave.framework.room.users.RoomDataSource
 
@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
 
         navController = view.findNavController()
 
-        val data = UserDataSource(RoomDataSource()).getUser(requireContext())
+        val data = UsersLocalDataSource(RoomDataSource()).getUser(requireContext())
 
         if (data != null){
             binding.username.text = data.userName
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
         binding.materialButton.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_mainActivity)
-            UserDataSource(RoomDataSource()).signOut(requireContext())
+            UsersLocalDataSource(RoomDataSource()).signOut(requireContext())
         }
 
         // funcion un poco extraña pero funciona para que cuando este logueado y le des para atras no se vuelva a la ventana si no que se cierre la app

@@ -4,25 +4,27 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
-import java.util.ArrayList
 
 class UsersFirebaseDataSource {
 
-    var databaseInstance: FirebaseFirestore = FirebaseFirestore.getInstance()
+    // instance of the firebase to implement all the solutions
+    private var databaseInstance: FirebaseFirestore = FirebaseFirestore.getInstance()
 
-    fun insertUser(userStructureDataModel: UserStructureDataModel): Boolean{
-        databaseInstance
-            .collection("users")
-            .document(userStructureDataModel.email)
-            .set(
+    suspend fun insertUser(userStructureDataModel: UserStructureDataModel): Boolean{
+        var result = false
+        return try {
+            databaseInstance.collection("users").document(userStructureDataModel.email).set(
+                hashMapOf(
+                    "username" to userStructureDataModel.userName,
+                    "avatar" to userStructureDataModel.avatar,
+                    "setting" to userStructureDataModel.setting,
+                )
+            ).addOnSuccessListener { result = true }.await()
+            result
 
-            hashMapOf(
-                "username" to userStructureDataModel.userName,
-                "avatar" to userStructureDataModel.avatar,
-                "setting" to userStructureDataModel.setting,
-            )
-        )
-        return true
+        } catch (e: Exception){
+            result
+        }
     }
 
     suspend fun getUser(email: String): UserStructureDataModel {
@@ -42,6 +44,5 @@ class UsersFirebaseDataSource {
     }
 
     fun editUser(){
-
     }
 }

@@ -4,7 +4,7 @@ import android.content.Context
 import com.justjump.filmscave.data._interfaces.RoomFrameworkDataSource
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 
-class UserDataSource(private val roomFrameworkDataSource: RoomFrameworkDataSource)  {
+class UsersLocalDataSource(private val roomFrameworkDataSource: RoomFrameworkDataSource)  {
 
     fun getUser(context: Context): UserStructureDataModel? = roomFrameworkDataSource.getUser(context)
 

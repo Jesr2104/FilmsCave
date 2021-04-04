@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.justjump.filmscave.users.SignUpFragment
-import com.justjump.filmscave.data.datasources.users.remote.SignUpDataSource
+import com.justjump.filmscave.data.datasources.users.SignUp
 import com.justjump.filmscave.data.repositories.users.SignUpRepository
 import com.justjump.filmscave.data._utils.Status
 import com.justjump.filmscave.domain.users.UserStructureDataModel
@@ -29,7 +29,9 @@ class SignUpViewModel : ViewModel() {
     var emailValue = MutableLiveData<String>()
     var passwordValue = MutableLiveData<String>()
 
-    fun signUpUser(signUpFragment: SignUpFragment, appContext: Context) = SignUpUseCases(SignUpRepository(SignUpDataSource(RoomDataSource())))
+    fun signUpUser(signUpFragment: SignUpFragment, appContext: Context) = SignUpUseCases(SignUpRepository(
+        SignUp(RoomDataSource())
+    ))
         .invoke(appContext, createUserValidation(),createLocalStructure()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
