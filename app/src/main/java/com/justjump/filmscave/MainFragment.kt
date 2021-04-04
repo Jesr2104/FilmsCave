@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.justjump.filmscave.databinding.FragmentMainBinding
 import com.justjump.filmscave._viewmodel.MainViewModel
+import com.justjump.filmscave.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 

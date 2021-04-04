@@ -7,7 +7,6 @@
     <!--    ======================================   -->
     <!--    ====    Content Description       ====   -->
     <!--    ======================================   -->
-    <string name="cd_icon_back">Icon go back</string>
     <string name="cd_login_google">icon login with google</string>
     <string name="cd_login_facebook">icon to login with facebook</string>
     <string name="cd_login_anonymous">login to anonymous</string>
@@ -31,13 +30,23 @@
     <string name="password">Password</string>
     <string name="accept_policy_terms">I accept the policy and terms</string>
     <string name="text_recommend_social_media_to_login">It\'s easier to sign up now</string>
+    <string name="accept_policies">You must accept the policies before proceeding</string>
+    <string name="password_rules_6chars">The password must be at least 6 characters</string>
 
     <!--    ======================================   -->
     <!--    ====    Text: Login               ====   -->
     <!--    ======================================   -->
-    <string name="remember_me">Remember me</string>
     <string name="forgot_password">Forgot password?</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_fields">Some required fields are empty</string>
 
+    <!--    ======================================   -->
+    <!--    ====    Text: message error       ====   -->
+    <!--    ======================================   -->
+    <string name="id_message_login_successfully">The user has been successfully logged in.</string>
+    <string name="id_message_password_invalid">The password is invalid.</string>
+    <string name="id_message_email_invalid">The email account is not valid.</string>
+    <string name="id_message_email_not_registered">There is no user with this email account.</string>
+    <string name="id_message_sign_up_successful">The user has been created successfully.</string>
+    <string name="id_message_address_badly_formatted">The mail address is badly formatted.</string>
+    <string name="id_message_email_used">The mail address is already in use by another account.</string>
 </resources>

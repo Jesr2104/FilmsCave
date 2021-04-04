@@ -3,6 +3,7 @@ package com.justjump.filmscave.users.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.justjump.filmscave.R
 import com.justjump.filmscave.data._utils.Status
 import com.justjump.filmscave.data.datasources.users.LogIn
 import com.justjump.filmscave.data.repositories.users.LogInRepository
@@ -13,15 +14,8 @@ import com.justjump.filmscave.users.LoginFragment
 
 class LogInViewModel: ViewModel() {
 
-    companion object{
-        var ID0_MESSAGE = "The user has been successfully logged in."
-        var ID1_MESSAGE = "The password is invalid."
-        var ID2_MESSAGE = "The email account is not valid."
-        var ID3_MESSAGE = "There is no user with this email account."
-    }
-
     interface Message{
-        fun showMessage(message: String, success: Boolean)
+        fun showMessage(message: Int, success: Boolean)
     }
 
     var emailValue = MutableLiveData<String>()
@@ -33,13 +27,13 @@ class LogInViewModel: ViewModel() {
         .invoke(appContext, createUserValidation()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    logInFragment.showMessage(ID0_MESSAGE, true)
+                    logInFragment.showMessage(R.string.id_message_login_successfully, true)
                 }
                 Status.ERROR -> {
                     when (it.codeException){
-                    "ERROR_WRONG_PASSWORD" -> { logInFragment.showMessage(ID1_MESSAGE, false)}
-                    "ERROR_INVALID_EMAIL" -> { logInFragment.showMessage(ID2_MESSAGE, false)}
-                    "ERROR_USER_NOT_FOUND" -> { logInFragment.showMessage(ID3_MESSAGE, false)}
+                    "ERROR_WRONG_PASSWORD" -> { logInFragment.showMessage(R.string.id_message_password_invalid, false)}
+                    "ERROR_INVALID_EMAIL" -> { logInFragment.showMessage(R.string.id_message_email_invalid, false)}
+                    "ERROR_USER_NOT_FOUND" -> { logInFragment.showMessage(R.string.id_message_email_not_registered, false)}
                 }}}}
 
     private fun createUserValidation() =

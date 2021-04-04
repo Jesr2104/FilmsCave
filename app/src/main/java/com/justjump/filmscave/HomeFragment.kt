@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
             UsersLocalDataSource(RoomDataSource()).signOut(requireContext())
         }
 
-        // funcion un poco extraña pero funciona para que cuando este logueado y le des para atras no se vuelva a la ventana si no que se cierre la app
+        // It worked a bit strange but it works so that when you are logged in and you give it back, it does not return to the window but the app closes
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
             requireActivity().finish()
         }

@@ -3,6 +3,7 @@ package com.justjump.filmscave.users.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.justjump.filmscave.R
 import com.justjump.filmscave.users.SignUpFragment
 import com.justjump.filmscave.data.datasources.users.SignUp
 import com.justjump.filmscave.data.repositories.users.SignUpRepository
@@ -15,32 +16,25 @@ import java.util.ArrayList
 
 class SignUpViewModel : ViewModel() {
 
-    companion object{
-        var ID0_MESSAGE = "The user has been created successfully."
-        var ID1_MESSAGE = "The mail address is badly formatted."
-        var ID2_MESSAGE = "The mail address is already in use by another account."
-    }
-
     interface Message{
-        fun showMessage(message: String, success: Boolean)
+        fun showMessage(message: Int, success: Boolean)
     }
 
     var userNameValue = MutableLiveData<String>()
     var emailValue = MutableLiveData<String>()
     var passwordValue = MutableLiveData<String>()
 
-    fun signUpUser(signUpFragment: SignUpFragment, appContext: Context) = SignUpUseCases(SignUpRepository(
-        SignUp(RoomDataSource())
-    ))
+    fun signUpUser(signUpFragment: SignUpFragment, appContext: Context)
+        = SignUpUseCases(SignUpRepository(SignUp(RoomDataSource())))
         .invoke(appContext, createUserValidation(),createLocalStructure()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    signUpFragment.showMessage(ID0_MESSAGE,true)
+                    signUpFragment.showMessage(R.string.id_message_sign_up_successful,true)
                 }
                 Status.ERROR -> {
                     when (it.codeException){
-                        "ERROR_INVALID_EMAIL" ->{ signUpFragment.showMessage(ID1_MESSAGE, false) }
-                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(ID2_MESSAGE, false) }
+                        "ERROR_INVALID_EMAIL" ->{ signUpFragment.showMessage(R.string.id_message_address_badly_formatted, false) }
+                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(R.string.id_message_email_used, false) }
                     }}}}
 
     private fun createUserValidation() =

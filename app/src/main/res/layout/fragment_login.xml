@@ -96,46 +96,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/palette_white"
+                android:inputType="textPassword"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switch_save_user"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:checked="false"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="@+id/password_textInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/password_textInputLayout" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/remember_me"
-            android:textColor="@color/palette_white"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/switch_save_user"
-            app:layout_constraintStart_toEndOf="@+id/switch_save_user"
-            app:layout_constraintTop_toTopOf="@+id/switch_save_user"
-            tools:ignore="SmallSp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/forgot_password"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
+            android:text="@string/forgot_password"
             android:textColor="@color/palette_links"
             android:textSize="8sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/switch_save_user"
             app:layout_constraintEnd_toEndOf="@+id/password_textInputLayout"
-            app:layout_constraintTop_toTopOf="@+id/switch_save_user"
+            app:layout_constraintTop_toBottomOf="@+id/password_textInputLayout"
             tools:ignore="SmallSp" />
 
         <com.google.android.material.button.MaterialButton
@@ -150,7 +128,7 @@
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch_save_user"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintWidth_percent="0.3" />
 
         <TextView

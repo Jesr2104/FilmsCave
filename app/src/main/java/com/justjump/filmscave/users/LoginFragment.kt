@@ -45,6 +45,9 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
 
                 binding.loading.visibility = View.VISIBLE
                 logInViewModel.logInUser(this,requireActivity().applicationContext)
+            } else {
+                // message to tell to the user one of fields is empty
+                Toast.makeText(requireContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -56,8 +59,8 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         }
     }
 
-    override fun showMessage(message: String, success: Boolean) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    override fun showMessage(message: Int, success: Boolean) {
+        Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
         binding.loading.visibility = View.INVISIBLE
 
         if (success){

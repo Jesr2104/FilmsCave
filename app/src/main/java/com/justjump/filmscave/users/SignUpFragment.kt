@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.justjump.filmscave.R
-import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave._utils.validatePassword
+import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
 
 class SignUpFragment : Fragment(), SignUpViewModel.Message {
@@ -51,15 +51,15 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
                             signUpViewModel.signUpUser(this, requireActivity().applicationContext)
 
                         } else {
-                            Toast.makeText(requireContext(), "The password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.password_rules_6chars), Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
                     // message to tell to the user one of fields is empty
-                    Toast.makeText(requireContext(), "Some required fields are empty", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.empty_fields), Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(requireContext(), "You must accept the policies before proceeding", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.accept_policies), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -71,8 +71,8 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
         }
     }
 
-    override fun showMessage(message: String, success: Boolean) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    override fun showMessage(message: Int, success: Boolean) {
+        Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
         binding.loading.visibility = View.INVISIBLE
 
         if (success){
