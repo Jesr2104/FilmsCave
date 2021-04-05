@@ -26,7 +26,7 @@ class SignUpViewModel : ViewModel() {
 
     fun signUpUser(signUpFragment: SignUpFragment, appContext: Context)
         = SignUpUseCases(SignUpRepository(SignUp(RoomDataSource())))
-        .invoke(appContext, createUserValidation(),UserStructureDataModel()).observeForever{
+        .invoke(appContext, createUserValidation(),createUserStructureDataModel()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
                     signUpFragment.showMessage(R.string.id_message_sign_up_successful,true)
@@ -39,6 +39,9 @@ class SignUpViewModel : ViewModel() {
 
     private fun createUserValidation() =
         UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
+
+    private fun createUserStructureDataModel() =
+        UserStructureDataModel(userName = userNameValue.value.toString(),email = emailValue.value.toString())
 
     fun validateUsername(): Boolean {
         //TODO ("Implement this function")

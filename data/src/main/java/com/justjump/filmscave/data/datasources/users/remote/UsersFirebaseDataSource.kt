@@ -15,7 +15,7 @@ class UsersFirebaseDataSource {
     suspend fun insertUser(userStructureDataModel: UserStructureDataModel): Boolean{
         var result = false
         return try {
-            databaseInstance.collection("user").document(userStructureDataModel.email).set(
+            databaseInstance.collection("users").document(userStructureDataModel.email.trim()).set(
                 hashMapOf(
                     "username" to userStructureDataModel.userName,
                     "avatar" to userStructureDataModel.avatar,
@@ -32,7 +32,7 @@ class UsersFirebaseDataSource {
 
     suspend fun getUser(email: String): UserStructureDataModel {
         return try {
-            val data = databaseInstance.collection("users").document(email).get().await()
+            val data = databaseInstance.collection("users").document(email.trim()).get().await()
             UserStructureDataModel(
                 userName = data.get("username") as String,
                 email = email,
