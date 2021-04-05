@@ -40,5 +40,5 @@ dependencies {
     implementation project(":domain")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
 }

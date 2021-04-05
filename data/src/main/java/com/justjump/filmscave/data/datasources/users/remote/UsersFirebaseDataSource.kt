@@ -1,5 +1,7 @@
 package com.justjump.filmscave.data.datasources.users.remote
 
+import android.util.Log
+import com.google.firebase.FirebaseException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import kotlinx.coroutines.tasks.await
@@ -13,7 +15,7 @@ class UsersFirebaseDataSource {
     suspend fun insertUser(userStructureDataModel: UserStructureDataModel): Boolean{
         var result = false
         return try {
-            databaseInstance.collection("users").document(userStructureDataModel.email).set(
+            databaseInstance.collection("user").document(userStructureDataModel.email).set(
                 hashMapOf(
                     "username" to userStructureDataModel.userName,
                     "avatar" to userStructureDataModel.avatar,
@@ -23,6 +25,7 @@ class UsersFirebaseDataSource {
             result
 
         } catch (e: Exception){
+            Log.e("Tag: Jesr2104", e.message.toString())
             result
         }
     }
@@ -35,9 +38,13 @@ class UsersFirebaseDataSource {
                 email = email,
                 avatar = data.get("avatar") as String,
             )
-        } catch (e: Exception){
+        } catch (e: FirebaseException){
             UserStructureDataModel()
         }
+    }
+
+    suspend fun checkUserName(){
+
     }
 
     fun removeUser(){

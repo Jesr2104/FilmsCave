@@ -49,4 +49,7 @@
     <string name="id_message_sign_up_successful">The user has been created successfully.</string>
     <string name="id_message_address_badly_formatted">The mail address is badly formatted.</string>
     <string name="id_message_email_used">The mail address is already in use by another account.</string>
+
+    <string name="id_message_username_true">is available.</string>
+    <string name="id_message_username_false">has already been taken.</string>
 </resources>
