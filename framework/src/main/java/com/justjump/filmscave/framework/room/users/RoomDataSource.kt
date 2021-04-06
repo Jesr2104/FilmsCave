@@ -38,13 +38,8 @@ class RoomDataSource : RoomFrameworkDataSource {
         //TODO ("Change structure for room")
         if (user != null){
             return UserStructureDataModel(
-                user.userName,
-                user.email,
-                user.avatar,
-                ArrayList(),
-                ArrayList(),
-                ArrayList(),
-                ""
+                userName = user.userName,
+                email = user.email
             )
         }
         db.close()
