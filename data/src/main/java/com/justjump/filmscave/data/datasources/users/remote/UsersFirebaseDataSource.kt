@@ -54,11 +54,14 @@ class UsersFirebaseDataSource {
 
     suspend fun getUser(email: String): UserStructureDataModel {
         return try {
-            val data = databaseInstance.collection("users").document(email.trim()).get().await()
+            val userDataFireStore = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).get().await()
+
             UserStructureDataModel(
-                userName = data.get("username") as String,
-                email = email,
-                avatar = data.get("avatar") as String,
+                userName = "Jesr2104",
+                email = userDataFireStore.get("email") as String,
+                avatar = userDataFireStore.get("avatar") as String,
+                date = userDataFireStore.get("date") as String,
+                setting = userDataFireStore.get("setting") as HashMap<String,Any>
             )
         } catch (e: FirebaseException){
             UserStructureDataModel()

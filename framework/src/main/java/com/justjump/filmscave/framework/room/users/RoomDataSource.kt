@@ -17,8 +17,7 @@ class RoomDataSource : RoomFrameworkDataSource {
         val userActive = UserRoom(
             userStructureDataModel.email,
             userStructureDataModel.userName,
-            userStructureDataModel.avatar,
-            userStructureDataModel.setting
+            userStructureDataModel.avatar
         )
 
         // clear any another session active

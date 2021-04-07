@@ -13,6 +13,6 @@ data class UserRoom (
 //    val customsList: String,
 //    val friends: String,
 //    val blockedUsers: String,
-    val setting: String
+//    val setting: String
 
 )
