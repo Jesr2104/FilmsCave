@@ -25,14 +25,21 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
         userStructureDataModel: UserStructureDataModel ): LiveData<Resource<String>> {
 
         GlobalScope.launch(Dispatchers.Main) {
-            /* Firebase Auth */
-            val result = usersFirebaseAuth.signUpUser(userValidationDataModel)
-            if (result.status){
-                if (/* Room Active Session => */ roomFrameworkDataSource.insertNewUser(appContext,userStructureDataModel) &&
-                    /* Firebase Cloud FireStore => */ usersFirebase.insertUser(userStructureDataModel)) {
-                    messageCreateUser.value = Resource.success()
+            // check if the user name is able to used
+            if (usersFirebase.checkUserName(userStructureDataModel.userName)){
+                /* Firebase Auth */
+                val result = usersFirebaseAuth.signUpUser(userValidationDataModel)
+                if (result.status){
+                    if (/* Room Active Session => */ roomFrameworkDataSource.insertNewUser(appContext,userStructureDataModel) &&
+                        /* Firebase Cloud FireStore => */ usersFirebase.insertUser(userStructureDataModel)) {
+                        messageCreateUser.value = Resource.success()
+                    }
+                } else {
+                    messageCreateUser.value = Resource.error(result.codeException)
                 }
-            } else {messageCreateUser.value = Resource.error(result.codeException)}
+            } else {
+                messageCreateUser.value = Resource.error("ERROR_USERNAME_NOT_ABLE")
+            }
         }
         return messageCreateUser
     }

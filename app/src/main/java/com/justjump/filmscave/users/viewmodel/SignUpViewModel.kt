@@ -4,20 +4,19 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.justjump.filmscave.R
-import com.justjump.filmscave.users.SignUpFragment
+import com.justjump.filmscave.data._utils.Status
 import com.justjump.filmscave.data.datasources.users.SignUp
 import com.justjump.filmscave.data.repositories.users.SignUpRepository
-import com.justjump.filmscave.data._utils.Status
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import com.justjump.filmscave.domain.users.UserValidationDataModel
 import com.justjump.filmscave.framework.room.users.RoomDataSource
 import com.justjump.filmscave.usecases.users.SignUpUseCases
-import java.util.ArrayList
+import com.justjump.filmscave.users.SignUpFragment
 
 class SignUpViewModel : ViewModel() {
 
     interface Message{
-        fun showMessage(message: Int, success: Boolean)
+        fun showMessage(message: Int, success: Boolean, fieldError: Int)
     }
 
     var userNameValue = MutableLiveData<String>()
@@ -29,12 +28,13 @@ class SignUpViewModel : ViewModel() {
         .invoke(appContext, createUserValidation(),createUserStructureDataModel()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    signUpFragment.showMessage(R.string.id_message_sign_up_successful,true)
+                    signUpFragment.showMessage(R.string.id_message_sign_up_successful,true, 0)
                 }
                 Status.ERROR -> {
                     when (it.codeException){
-                        "ERROR_INVALID_EMAIL" ->{ signUpFragment.showMessage(R.string.id_message_address_badly_formatted, false) }
-                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(R.string.id_message_email_used, false) }
+                        "ERROR_INVALID_EMAIL" ->{ signUpFragment.showMessage(R.string.id_message_address_badly_formatted, false,2) }
+                        "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(R.string.id_message_email_used, false, 2) }
+                        "ERROR_USERNAME_NOT_ABLE" ->{signUpFragment.showMessage(R.string.id_message_username_false,false, 1)}
                     }}}}
 
     private fun createUserValidation() =
@@ -42,14 +42,6 @@ class SignUpViewModel : ViewModel() {
 
     private fun createUserStructureDataModel() =
         UserStructureDataModel(userName = userNameValue.value.toString(),email = emailValue.value.toString())
-
-    fun validateUsername(): Boolean {
-        //TODO ("Implement this function")
-        // what we need to check:
-        // case1: If the string is correctly to be a username
-        // case2: If the username is free to be used
-        return true
-    }
 }
 
 /*      Firebase -> Exceptions
@@ -70,3 +62,6 @@ class SignUpViewModel : ViewModel() {
 ("ERROR_OPERATION_NOT_ALLOWED", "This operation is not allowed. You must enable this service in the console."));
 ("ERROR_WEAK_PASSWORD", "The given password is invalid."));
 ("ERROR_MISSING_EMAIL", "An email address must be provided.";*/
+
+//      Personal -> Exceptions
+// "ERROR_USERNAME_NOT_ABLE" , "has already been taken."

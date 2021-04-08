@@ -6,6 +6,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import kotlinx.coroutines.tasks.await
 
+
+@Suppress("UNCHECKED_CAST")
 class UsersFirebaseDataSource {
 
     companion object{
@@ -16,6 +18,22 @@ class UsersFirebaseDataSource {
     // instance of the firebase to implement all the solutions
     private var databaseInstance: FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    suspend fun checkUserName(Username: String): Boolean {
+        var usernameUnique = true
+        return try {
+            val a = databaseInstance.collection(COLLECTION_USERNAME).get().await()
+            for (item in  a.documents) {
+                if (item.get("username").toString().trim().equals(Username.trim(), ignoreCase = true)){
+                    usernameUnique = false
+                }
+            }
+            usernameUnique
+        } catch (e: Exception){
+            Log.e("Jesr2104","error")
+            usernameUnique
+        }
+    }
+
     suspend fun insertUser(userStructureDataModel: UserStructureDataModel): Boolean{
         var result = false
         val userId = userStructureDataModel.email.trim()
@@ -24,9 +42,11 @@ class UsersFirebaseDataSource {
             "language" to "default"
         )
 
+        // create the collection user
+        createUsername(userStructureDataModel.userName, userStructureDataModel.email)
+
         // user information
         val user = hashMapOf(
-            "username" to createUsername(userStructureDataModel.userName),
             "email" to userStructureDataModel.email,
             "avatar" to userStructureDataModel.avatar,
             "date" to userStructureDataModel.date,
@@ -47,37 +67,43 @@ class UsersFirebaseDataSource {
             result
 
         } catch (e: Exception){
-            Log.e("Jesr2104 => ", e.message.toString())
             result
         }
     }
 
     suspend fun getUser(email: String): UserStructureDataModel {
         return try {
-            val userDataFireStore = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).get().await()
+            val usersDataFireStore = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).get().await()
 
             UserStructureDataModel(
-                userName = "Jesr2104",
-                email = userDataFireStore.get("email") as String,
-                avatar = userDataFireStore.get("avatar") as String,
-                date = userDataFireStore.get("date") as String,
-                setting = userDataFireStore.get("setting") as HashMap<String,Any>
+                userName = getUsername(email),
+                email = usersDataFireStore.get("email") as String,
+                avatar = usersDataFireStore.get("avatar") as String,
+                date = usersDataFireStore.get("date") as String,
+                setting = usersDataFireStore.get("setting") as HashMap<String, Any>
             )
         } catch (e: FirebaseException){
             UserStructureDataModel()
         }
     }
 
-    private suspend fun createUsername(username: String) =
-        databaseInstance.collection(COLLECTION_USERNAME).add(hashMapOf("username" to username)).await()
+    fun removeUser(){}
+
+    fun editUser(){}
+
+    //********************************************************//
+    //          Functions to create Collections
+    //********************************************************//
+    private suspend fun createUsername(username: String, email: String) =
+        databaseInstance.collection(COLLECTION_USERNAME).document(email.trim()).set(hashMapOf("username" to username)).await()
 
     private suspend fun createFriendsList(email: String) =
         databaseInstance.collection(COLLECTION_USERS).document(email)
-            .collection("friends").add(hashMapOf( "username" to "","email" to "" )).await()
+            .collection("friends").add(hashMapOf("username" to "", "email" to "")).await()
 
     private suspend fun createBlockedUsers(email: String) =
         databaseInstance.collection(COLLECTION_USERS).document(email)
-            .collection("blockedUsers").add(hashMapOf( "username" to "","email" to "" )).await()
+            .collection("blockedUsers").add(hashMapOf("username" to "", "email" to "")).await()
 
     private suspend fun createCustomList(email: String) =
         databaseInstance.collection(COLLECTION_USERS).document(email)
@@ -88,15 +114,12 @@ class UsersFirebaseDataSource {
                     "like" to 0,
                     "dislike" to 0,
                     "access" to false
-                )).await()
+                )
+            ).await()
 
-    suspend fun checkUserName(){
-
-    }
-
-    fun removeUser(){
-    }
-
-    fun editUser(){
-    }
+    //********************************************************//
+    //          Functions to create Collections
+    //********************************************************//
+    private suspend fun getUsername(email: String) =
+        databaseInstance.collection(COLLECTION_USERNAME).document(email.trim()).get().await().get("username") as String
 }

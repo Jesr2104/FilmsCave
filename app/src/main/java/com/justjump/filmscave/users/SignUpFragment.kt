@@ -1,18 +1,26 @@
 package com.justjump.filmscave.users
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.justjump.filmscave.R
 import com.justjump.filmscave._utils.validatePassword
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.concurrent.schedule
+import kotlin.concurrent.thread
 
 class SignUpFragment : Fragment(), SignUpViewModel.Message {
 
@@ -42,17 +50,14 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
             if (binding.switchAcceptPolicies.isChecked){
                 if (binding.dataEmail.text!!.isNotEmpty() && binding.dataPassword.text!!.isNotEmpty() && binding.dataUserName.text!!.isNotEmpty()){
                     signUpViewModel.userNameValue.value = binding.dataUserName.text.toString()
-                    if(signUpViewModel.validateUsername()){
-                        if (binding.dataPassword.text.toString().validatePassword()){
-                            signUpViewModel.emailValue.value = binding.dataEmail.text.toString()
-                            signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
+                    if (binding.dataPassword.text.toString().validatePassword()){
+                        signUpViewModel.emailValue.value = binding.dataEmail.text.toString()
+                        signUpViewModel.passwordValue.value = binding.dataPassword.text.toString()
 
-                            binding.loading.visibility = View.VISIBLE
-                            signUpViewModel.signUpUser(this, requireActivity().applicationContext)
-
-                        } else {
-                            Toast.makeText(requireContext(), getString(R.string.password_rules_6chars), Toast.LENGTH_SHORT).show()
-                        }
+                        binding.loading.visibility = View.VISIBLE
+                        signUpViewModel.signUpUser(this, requireActivity().applicationContext)
+                    } else {
+                        Toast.makeText(requireContext(), getString(R.string.password_rules_6chars), Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     // message to tell to the user one of fields is empty
@@ -71,10 +76,28 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
         }
     }
 
-    override fun showMessage(message: Int, success: Boolean) {
+    override fun showMessage(message: Int, success: Boolean, fieldError: Int) {
         Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
         binding.loading.visibility = View.INVISIBLE
 
+        when(fieldError){
+            1 -> {
+                // Username
+                binding.dataUserName.requestFocus()
+                // delay to change de color of the field or text to red for 2 seconds
+                lifecycleScope.launch {
+                    delay(2000)
+                }
+            }
+            2 -> {
+                // Email
+                binding.dataEmail.requestFocus()
+                // delay to change de color of the field or text to red for 2 seconds
+                lifecycleScope.launch {
+                    delay(2000)
+                }
+            }
+        }
         if (success){
             navController.navigate(R.id.action_signUp_to_homeFragment)
         }
