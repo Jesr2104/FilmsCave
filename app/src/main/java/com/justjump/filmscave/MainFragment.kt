@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.justjump.filmscave._viewmodel.MainViewModel
 import com.justjump.filmscave.databinding.FragmentMainBinding
+import com.justjump.filmscave.framework.room.users.RoomDataSource
 
 class MainFragment : Fragment() {
 
@@ -33,6 +34,11 @@ class MainFragment : Fragment() {
 
         // this function check if the user is already login before.
         if (mainViewModel.checkPreviewSession(requireContext())){
+            navController.navigate(R.id.action_mainActivity_to_homeFragment)
+        }
+
+        binding.anonymousUsers.setOnClickListener {
+            mainViewModel.createAnonymousUser(requireContext(), RoomDataSource())
             navController.navigate(R.id.action_mainActivity_to_homeFragment)
         }
 

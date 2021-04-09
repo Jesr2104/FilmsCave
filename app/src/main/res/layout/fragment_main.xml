@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/anonymous_users"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
@@ -35,9 +35,9 @@
             android:textSize="8sp"
             android:textStyle="bold"
             android:textColor="@color/palette_white"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/anonymous_users"
+            app:layout_constraintStart_toStartOf="@+id/anonymous_users"
+            app:layout_constraintTop_toBottomOf="@+id/anonymous_users"
             tools:ignore="SmallSp" />
 
         <androidx.constraintlayout.widget.Guideline

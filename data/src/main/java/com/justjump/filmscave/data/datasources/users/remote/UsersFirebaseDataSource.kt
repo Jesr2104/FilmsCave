@@ -6,7 +6,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import kotlinx.coroutines.tasks.await
 
-
 @Suppress("UNCHECKED_CAST")
 class UsersFirebaseDataSource {
 
@@ -74,6 +73,10 @@ class UsersFirebaseDataSource {
     suspend fun getUser(email: String): UserStructureDataModel {
         return try {
             val usersDataFireStore = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).get().await()
+            //TODO ("Load the complete data for the list of the user")
+            // BlockedUsers
+            // CustomList
+            // Friends
 
             UserStructureDataModel(
                 userName = getUsername(email),
@@ -87,9 +90,13 @@ class UsersFirebaseDataSource {
         }
     }
 
-    fun removeUser(){}
+    fun removeUser(){
+        //TODO ("implement the function to delete user from firebase")
+    }
 
-    fun editUser(){}
+    fun editUser(){
+        //TODO (" implement the function to edit the information of the user")
+    }
 
     //********************************************************//
     //          Functions to create Collections

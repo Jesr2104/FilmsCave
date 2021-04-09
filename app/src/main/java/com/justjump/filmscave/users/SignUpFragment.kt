@@ -1,26 +1,18 @@
 package com.justjump.filmscave.users
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.justjump.filmscave.R
 import com.justjump.filmscave._utils.validatePassword
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.concurrent.schedule
-import kotlin.concurrent.thread
 
 class SignUpFragment : Fragment(), SignUpViewModel.Message {
 
@@ -57,7 +49,8 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
                         binding.loading.visibility = View.VISIBLE
                         signUpViewModel.signUpUser(this, requireActivity().applicationContext)
                     } else {
-                        Toast.makeText(requireContext(), getString(R.string.password_rules_6chars), Toast.LENGTH_SHORT).show()
+                        binding.dataPassword.requestFocus()
+                        binding.dataPassword.error = getString(R.string.password_rules_6chars)
                     }
                 } else {
                     // message to tell to the user one of fields is empty
@@ -77,29 +70,20 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
     }
 
     override fun showMessage(message: Int, success: Boolean, fieldError: Int) {
-        Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
         binding.loading.visibility = View.INVISIBLE
-
         when(fieldError){
             1 -> {
                 // Username
                 binding.dataUserName.requestFocus()
-                // delay to change de color of the field or text to red for 2 seconds
-                lifecycleScope.launch {
-                    delay(2000)
-                }
+                binding.dataUserName.error = getString(message)
             }
             2 -> {
                 // Email
                 binding.dataEmail.requestFocus()
-                // delay to change de color of the field or text to red for 2 seconds
-                lifecycleScope.launch {
-                    delay(2000)
-                }
+                binding.dataEmail.error = getString(message)
             }
+            else -> { Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show() }
         }
-        if (success){
-            navController.navigate(R.id.action_signUp_to_homeFragment)
-        }
+        if (success){ navController.navigate(R.id.action_signUp_to_homeFragment) }
     }
 }

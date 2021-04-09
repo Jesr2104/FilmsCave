@@ -15,9 +15,7 @@ import com.justjump.filmscave.users.SignUpFragment
 
 class SignUpViewModel : ViewModel() {
 
-    interface Message{
-        fun showMessage(message: Int, success: Boolean, fieldError: Int)
-    }
+    interface Message{ fun showMessage(message: Int, success: Boolean, fieldError: Int) }
 
     var userNameValue = MutableLiveData<String>()
     var emailValue = MutableLiveData<String>()
@@ -37,11 +35,9 @@ class SignUpViewModel : ViewModel() {
                         "ERROR_USERNAME_NOT_ABLE" ->{signUpFragment.showMessage(R.string.id_message_username_false,false, 1)}
                     }}}}
 
-    private fun createUserValidation() =
-        UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
+    private fun createUserValidation() = UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
 
-    private fun createUserStructureDataModel() =
-        UserStructureDataModel(userName = userNameValue.value.toString(),email = emailValue.value.toString())
+    private fun createUserStructureDataModel() = UserStructureDataModel(userName = userNameValue.value.toString(),email = emailValue.value.toString())
 }
 
 /*      Firebase -> Exceptions

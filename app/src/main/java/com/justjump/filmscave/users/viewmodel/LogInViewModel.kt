@@ -14,9 +14,7 @@ import com.justjump.filmscave.users.LoginFragment
 
 class LogInViewModel: ViewModel() {
 
-    interface Message{
-        fun showMessage(message: Int, success: Boolean)
-    }
+    interface Message{ fun showMessage(message: Int, success: Boolean, fieldError: Int) }
 
     var emailValue = MutableLiveData<String>()
     var passwordValue = MutableLiveData<String>()
@@ -27,15 +25,14 @@ class LogInViewModel: ViewModel() {
         .invoke(appContext, createUserValidation()).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    logInFragment.showMessage(R.string.id_message_login_successfully, true)
+                    logInFragment.showMessage(R.string.id_message_login_successfully, true,0)
                 }
                 Status.ERROR -> {
                     when (it.codeException){
-                    "ERROR_WRONG_PASSWORD" -> { logInFragment.showMessage(R.string.id_message_password_invalid, false)}
-                    "ERROR_INVALID_EMAIL" -> { logInFragment.showMessage(R.string.id_message_email_invalid, false)}
-                    "ERROR_USER_NOT_FOUND" -> { logInFragment.showMessage(R.string.id_message_email_not_registered, false)}
+                    "ERROR_WRONG_PASSWORD" -> { logInFragment.showMessage(R.string.id_message_password_invalid, false,2)}
+                    "ERROR_INVALID_EMAIL" -> { logInFragment.showMessage(R.string.id_message_email_invalid, false,1)}
+                    "ERROR_USER_NOT_FOUND" -> { logInFragment.showMessage(R.string.id_message_email_not_registered, false,0)}
                 }}}}
 
-    private fun createUserValidation() =
-        UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
+    private fun createUserValidation() = UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
 }

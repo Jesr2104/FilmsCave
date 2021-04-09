@@ -24,7 +24,6 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         savedInstanceState: Bundle?): View {
 
         binding = FragmentLoginBinding.inflate(layoutInflater)
-
         return binding.root
     }
 
@@ -59,12 +58,22 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         }
     }
 
-    override fun showMessage(message: Int, success: Boolean) {
-        Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
+    override fun showMessage(message: Int, success: Boolean, fieldError: Int) {
         binding.loading.visibility = View.INVISIBLE
 
-        if (success){
-            navController.navigate(R.id.action_login_to_homeFragment)
+        when(fieldError){
+            1 -> {
+                // email
+                binding.dataEmail.requestFocus()
+                binding.dataEmail.error = getString(message)
+            }
+            2 -> {
+                // password
+                binding.dataPassword.requestFocus()
+                binding.dataPassword.error = getString(message)
+            }
+            else -> { Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show() }
         }
+        if (success){ navController.navigate(R.id.action_login_to_homeFragment) }
     }
 }
