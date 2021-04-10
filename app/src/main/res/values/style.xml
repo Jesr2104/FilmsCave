@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-
     <style name="small_title" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">15sp</item>
     </style>
@@ -18,5 +17,4 @@
         <!-- active thumb & track color (30% transparency) -->
         <item name="colorControlActivated">@color/main_dark_blue</item>
     </style>
-
 </resources>

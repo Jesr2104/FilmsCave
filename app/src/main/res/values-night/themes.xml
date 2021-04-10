@@ -16,7 +16,12 @@
         <!-- com.justjump.filmscave.data.utils.Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
+        <!--============================-->
         <!-- Customize your theme here. -->
+        <!--============================-->
+
+        <!-- to put the translucent bars. -->
+        <item name="android:windowTranslucentNavigation">true</item>
 
     </style>
 </resources>
