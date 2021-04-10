@@ -30,4 +30,12 @@ class UsersFirebaseAuthDataSource {
             ResultAuth(true)
         } catch (e: FirebaseAuthException) {ResultAuth(false, e.errorCode)}
     }
+
+    suspend fun sendPasswordResetEmail(userValidationDataModel: UserValidationDataModel): ResultAuth{
+        return try {
+            databaseInstance.sendPasswordResetEmail(
+                userValidationDataModel.email).await()
+            ResultAuth(true)
+        } catch (e: FirebaseAuthException){ ResultAuth(false, e.errorCode) }
+    }
 }

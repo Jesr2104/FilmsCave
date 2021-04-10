@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.justjump.filmscave.databinding.FragmentRecoverViaEmailBinding
 
@@ -48,6 +49,15 @@ class RecoverViaEmailFragment : Fragment(), RecoverViaEmailViewModel.Message {
     }
 
     override fun showMessage(message: Int, success: Boolean, fieldError: Int) {
-        TODO("Not yet implemented")
+        binding.loading.visibility = View.INVISIBLE
+
+        when(fieldError){
+            1 -> {
+                // email
+                binding.dataEmail.requestFocus()
+                binding.dataEmail.error = getString(message)
+            }
+            else -> { Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show() }
+        }
     }
 }

@@ -61,7 +61,7 @@
             android:textStyle="bold"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
-            android:text="@string/message_for_recover_via_email"
+            android:text="@string/id_message_for_recover_via_email"
             android:textColor="@color/palette_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
