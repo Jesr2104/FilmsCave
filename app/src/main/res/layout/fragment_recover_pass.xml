@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="25dp"
-            android:text="@string/forgot"
+            android:text="@string/title_forgot"
             android:textColor="@color/palette_white"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -51,7 +51,7 @@
             android:id="@+id/title_part2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/your_password"
+            android:text="@string/title_your_password"
             android:textColor="@color/palette_white"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -65,7 +65,7 @@
             android:layout_marginTop="15dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/text_to_explain_field"
+            android:text="@string/message_select_method"
             android:textColor="@color/palette_white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +112,7 @@
                     android:layout_marginStart="10dp"
                     android:textStyle="bold"
                     android:textColor="@color/palette_white"
-                    android:text="@string/via_sms"
+                    android:text="@string/title_via_sms"
                     app:layout_constraintStart_toEndOf="@+id/icon_sms"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/palette_white"
                     android:textSize="10sp"
-                    android:text="@string/text_to_explain_method_sms"
+                    android:text="@string/message_method_sms"
                     app:layout_constraintStart_toStartOf="@+id/title_via_sms"
                     app:layout_constraintTop_toBottomOf="@+id/title_via_sms"
                     tools:ignore="SmallSp" />
@@ -173,7 +173,7 @@
                 android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/palette_white"
-                android:text="@string/via_email"
+                android:text="@string/title_via_email"
                 app:layout_constraintStart_toEndOf="@+id/icon_email"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/palette_white"
                 android:textSize="10sp"
-                android:text="@string/text_to_explain_method_email"
+                android:text="@string/message_method_email"
                 app:layout_constraintStart_toStartOf="@+id/title_via_email"
                 app:layout_constraintTop_toBottomOf="@+id/title_via_email"
                 tools:ignore="SmallSp" />

@@ -42,30 +42,30 @@
             app:layout_constraintGuide_percent="0.15" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/title_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/title_via_email_field"
             android:textColor="@color/palette_white"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:text="Reset password via E-mail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/text_field_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
-            android:text="Enter your e-mail address we'll send you an email to reset your password"
+            android:text="@string/message_for_recover_via_email"
             android:textColor="@color/palette_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/title_field" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email_textInputLayout"
@@ -84,7 +84,7 @@
             app:hintTextColor="@color/palette_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/text_field_info"
             app:layout_constraintWidth_percent="0.6">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -98,18 +98,30 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_submit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintWidth_percent="0.3"
             android:backgroundTint="@color/palette_white"
             android:textColor="@color/main_dark_blue"
             android:layout_marginTop="10dp"
-            android:text="Submit"
+            android:text="@string/button_submit"
             android:textStyle="bold"
             app:cornerRadius="@dimen/circle_radius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_textInputLayout" />
+
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
+            android:indeterminateDrawable="@drawable/bg_progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_submit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

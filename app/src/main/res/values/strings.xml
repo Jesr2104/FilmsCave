@@ -54,17 +54,21 @@
     <!--    ======================================   -->
     <!--    ====    Text: Recovery password   ====   -->
     <!--    ======================================   -->
-    <string name="forgot">Forgot</string>
-    <string name="your_password">Your Password</string>
+    <string name="title_forgot">Forgot</string>
+    <string name="title_your_password">Your Password</string>
     <string name="icon_msm">icon_msm</string>
     <string name="icon_email">icon_email</string>
-    <string name="via_sms">Via SMS:</string>
-    <string name="via_email">Via E-mail:</string>
-    <string name="text_to_explain_field">Select which kind of method you want to use to reset you password.</string>
-    <string name="text_to_explain_method_sms">we will send an SMS to \nallow setting a new password.</string>
-    <string name="text_to_explain_method_email">we will send an email with a \nlink to setting a new password</string>
+    <string name="title_via_sms">Via SMS:</string>
+    <string name="title_via_email">Via E-mail:</string>
+    <string name="message_select_method">Select which kind of method you want to use to reset you password.</string>
+    <string name="message_method_sms">we will send an SMS to \nallow setting a new password.</string>
+    <string name="message_method_email">we will send an email with a \nlink to setting a new password</string>
 
     <!--    ===========================================   -->
     <!--    ====    Text: Recovery pass via mail   ====   -->
     <!--    ===========================================   -->
+    <string name="button_submit">Submit</string>
+    <string name="title_via_email_field">Reset password?</string>
+    <string name="message_for_recover_via_email">Enter your e-mail address we\'ll send you an email to reset your password</string>
+
 </resources>

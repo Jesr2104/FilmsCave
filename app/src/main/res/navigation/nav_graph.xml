@@ -7,6 +7,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainActivity">
 
+    <!--  Fragment: mainActivity  -->
     <fragment
         android:id="@+id/mainActivity"
         android:name="com.justjump.filmscave.MainFragment"
@@ -22,10 +23,11 @@
             app:destination="@id/login"/>
         <action
             android:id="@+id/action_mainActivity_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/home" />
 
     </fragment>
 
+    <!--  Fragment: SignUpFragment  -->
     <fragment
         android:id="@+id/signUp"
         android:name="com.justjump.filmscave.users.SignUpFragment"
@@ -34,10 +36,11 @@
 
         <action
             android:id="@+id/action_signUp_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/home" />
 
     </fragment>
 
+    <!--  Fragment: LogInFragment  -->
     <fragment
         android:id="@+id/login"
         android:name="com.justjump.filmscave.users.LoginFragment"
@@ -46,16 +49,17 @@
 
         <action
             android:id="@+id/action_login_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/home" />
 
         <action
             android:id="@+id/action_login_to_recoverPassFragment"
-            app:destination="@id/recoverPassFragment" />
+            app:destination="@id/recoverPass" />
 
     </fragment>
 
+    <!--  Fragment: HomeFragment  -->
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home"
         android:name="com.justjump.filmscave.HomeFragment"
         android:label="activity_home"
         tools:layout="@layout/fragment_home" >
@@ -65,18 +69,25 @@
             app:destination="@id/mainActivity" />
 
     </fragment>
+
+    <!--  Fragment: RecoverPassFragment  -->
     <fragment
-        android:id="@+id/recoverPassFragment"
+        android:id="@+id/recoverPass"
         android:name="com.justjump.filmscave.users.RecoverPassFragment"
         android:label="fragment_recover_pass"
         tools:layout="@layout/fragment_recover_pass" >
+
         <action
             android:id="@+id/action_recoverPassFragment_to_recoverViaEmailFragment"
-            app:destination="@id/recoverViaEmailFragment" />
+            app:destination="@id/recoverViaEmail" />
+
     </fragment>
+
+    <!--  Fragment: RecoverViaEmailFragment  -->
     <fragment
-        android:id="@+id/recoverViaEmailFragment"
+        android:id="@+id/recoverViaEmail"
         android:name="com.justjump.filmscave.users.RecoverViaEmailFragment"
         android:label="fragment_recover_via_email"
         tools:layout="@layout/fragment_recover_via_email" />
+
 </navigation>
