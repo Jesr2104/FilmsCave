@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/status_bar_size"
-    android:background="@color/main_dark_blue"
+    android:background="@color/main_light_blue"
     tools:context=".users.RecoverPassFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,105 +18,179 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/main_light_blue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.35"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_back"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/back"
+            android:textColor="@color/palette_white"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_arrow_back"
+            app:iconTint="@color/palette_white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_back"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
+        <TextView
+            android:id="@+id/title_part1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/forgot"
+            android:textColor="@color/palette_white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_back" />
+
+        <TextView
+            android:id="@+id/title_part2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_password"
+            android:textColor="@color/palette_white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/title_part1"
+            app:layout_constraintTop_toBottomOf="@+id/title_part1" />
+
+        <TextView
+            android:id="@+id/text_to_explain_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/text_to_explain_field"
+            android:textColor="@color/palette_white"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_part2" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_via_sms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.8"
+            android:layout_marginTop="35dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/main_dark_blue_transparent"
+            app:cardElevation="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:checkable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_to_explain_field">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/icon_sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_sms"
+                    app:tint="@color/palette_white"
+                    android:contentDescription="@string/icon_msm"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/title_via_sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/palette_white"
+                    android:text="@string/via_sms"
+                    app:layout_constraintStart_toEndOf="@+id/icon_sms"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_to_explain_method_sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/palette_white"
+                    android:textSize="10sp"
+                    android:text="@string/text_to_explain_method_sms"
+                    app:layout_constraintStart_toStartOf="@+id/title_via_sms"
+                    app:layout_constraintTop_toBottomOf="@+id/title_via_sms"
+                    tools:ignore="SmallSp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_via_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.8"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:cardBackgroundColor="#502B2D3C"
+            app:cardElevation="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:checkable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_via_sms">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/icon_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:gravity="start|center_vertical"
-                android:text="@string/back"
-                android:textColor="@color/palette_white"
-                android:textStyle="bold"
-                app:icon="@drawable/ic_arrow_back"
-                app:iconTint="@color/palette_white"
+                android:src="@drawable/ic_email"
+                app:tint="@color/palette_white"
+                android:contentDescription="@string/icon_email"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/title_via_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/palette_white"
+                android:text="@string/via_email"
+                app:layout_constraintStart_toEndOf="@+id/icon_email"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:theme="@style/big_title"
-            android:text="Forgot password?"
-            android:textColor="@color/palette_white"
-            android:layout_marginTop="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enter your e-mail address we'll send you an email to reset your password"
-            android:textColor="@color/palette_white"
-            android:layout_marginTop="10dp"
-            android:paddingStart="50dp"
-            android:paddingEnd="50dp"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_textInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:textColorHint="@color/palette_white"
-            app:boxCornerRadiusBottomEnd="@dimen/circle_radius"
-            app:boxCornerRadiusBottomStart="@dimen/circle_radius"
-            app:boxCornerRadiusTopEnd="@dimen/circle_radius"
-            app:boxCornerRadiusTopStart="@dimen/circle_radius"
-            app:boxStrokeColor="@color/palette_white"
-            app:boxStrokeWidth="1.5dp"
-            app:hintTextColor="@color/palette_white"
-            android:layout_marginTop="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintWidth_percent="0.6">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/data_email"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/text_to_explain_method_email"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/palette_white"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textSize="10sp"
+                android:text="@string/text_to_explain_method_email"
+                app:layout_constraintStart_toStartOf="@+id/title_via_email"
+                app:layout_constraintTop_toBottomOf="@+id/title_via_email"
+                tools:ignore="SmallSp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintWidth_percent="0.3"
-            app:cornerRadius="30dp"
-            android:text="Submit"
-            android:textStyle="bold"
-            android:textColor="@color/main_dark_blue"
-            android:backgroundTint="@color/palette_white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_textInputLayout" />
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

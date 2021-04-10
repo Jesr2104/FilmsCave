@@ -69,5 +69,14 @@
         android:id="@+id/recoverPassFragment"
         android:name="com.justjump.filmscave.users.RecoverPassFragment"
         android:label="fragment_recover_pass"
-        tools:layout="@layout/fragment_recover_pass" />
+        tools:layout="@layout/fragment_recover_pass" >
+        <action
+            android:id="@+id/action_recoverPassFragment_to_recoverViaEmailFragment"
+            app:destination="@id/recoverViaEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recoverViaEmailFragment"
+        android:name="com.justjump.filmscave.users.RecoverViaEmailFragment"
+        android:label="fragment_recover_via_email"
+        tools:layout="@layout/fragment_recover_via_email" />
 </navigation>

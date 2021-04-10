@@ -40,7 +40,7 @@
     <string name="empty_fields">Some required fields are empty</string>
 
     <!--    ======================================   -->
-    <!--    ====    Text: message error       ====   -->
+    <!--    ====    Text: Message error       ====   -->
     <!--    ======================================   -->
     <string name="id_message_login_successfully">The user has been successfully logged in.</string>
     <string name="id_message_password_invalid">The password is invalid.</string>
@@ -50,4 +50,21 @@
     <string name="id_message_address_badly_formatted">The mail address is badly formatted.</string>
     <string name="id_message_email_used">The mail address is already in use by another account.</string>
     <string name="id_message_username_false">The username has already been taken.</string>
+
+    <!--    ======================================   -->
+    <!--    ====    Text: Recovery password   ====   -->
+    <!--    ======================================   -->
+    <string name="forgot">Forgot</string>
+    <string name="your_password">Your Password</string>
+    <string name="icon_msm">icon_msm</string>
+    <string name="icon_email">icon_email</string>
+    <string name="via_sms">Via SMS:</string>
+    <string name="via_email">Via E-mail:</string>
+    <string name="text_to_explain_field">Select which kind of method you want to use to reset you password.</string>
+    <string name="text_to_explain_method_sms">we will send an SMS to \nallow setting a new password.</string>
+    <string name="text_to_explain_method_email">we will send an email with a \nlink to setting a new password</string>
+
+    <!--    ===========================================   -->
+    <!--    ====    Text: Recovery pass via mail   ====   -->
+    <!--    ===========================================   -->
 </resources>
