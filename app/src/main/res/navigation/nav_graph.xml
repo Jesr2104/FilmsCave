@@ -48,6 +48,10 @@
             android:id="@+id/action_login_to_homeFragment"
             app:destination="@id/homeFragment" />
 
+        <action
+            android:id="@+id/action_login_to_recoverPassFragment"
+            app:destination="@id/recoverPassFragment" />
+
     </fragment>
 
     <fragment
@@ -61,4 +65,9 @@
             app:destination="@id/mainActivity" />
 
     </fragment>
+    <fragment
+        android:id="@+id/recoverPassFragment"
+        android:name="com.justjump.filmscave.users.RecoverPassFragment"
+        android:label="fragment_recover_pass"
+        tools:layout="@layout/fragment_recover_pass" />
 </navigation>
