@@ -72,7 +72,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_textInputLayout"
+            android:id="@+id/phone_number_textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
             app:passwordToggleEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email_textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/phone_number_textInputLayout"
             app:layout_constraintWidth_percent="0.6">
 
             <com.google.android.material.textfield.TextInputEditText

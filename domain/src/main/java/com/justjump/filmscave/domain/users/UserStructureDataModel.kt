@@ -8,6 +8,7 @@ data class UserStructureDataModel(
     val userName: String = "",
     val email: String = "",
     val avatar: String = "avatar/default_avatar.svg",
+    val mobileNumber: String = "",
     val date: String = Calendar.getInstance().time.toString(),
     val friends: ArrayList<String> = java.util.ArrayList<String>(),
     val list: ArrayList<String> = java.util.ArrayList<String>(),

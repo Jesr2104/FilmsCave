@@ -34,7 +34,7 @@ class RecoverPassFragment : Fragment() {
         navController = view.findNavController()
 
         binding.cardViaSms.setOnClickListener {
-
+            navController.navigate(R.id.action_recoverPass_to_recoverViaSMS)
         }
 
         binding.cardViaEmail.setOnClickListener {

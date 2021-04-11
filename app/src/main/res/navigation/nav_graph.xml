@@ -81,6 +81,10 @@
             android:id="@+id/action_recoverPassFragment_to_recoverViaEmailFragment"
             app:destination="@id/recoverViaEmail" />
 
+        <action
+            android:id="@+id/action_recoverPass_to_recoverViaSMS"
+            app:destination="@id/recoverViaSMS" />
+
     </fragment>
 
     <!--  Fragment: RecoverViaEmailFragment  -->
@@ -89,5 +93,12 @@
         android:name="com.justjump.filmscave.users.RecoverViaEmailFragment"
         android:label="fragment_recover_via_email"
         tools:layout="@layout/fragment_recover_via_email" />
+
+    <!--  Fragment: recoverViaSMSFragment  -->
+    <fragment
+        android:id="@+id/recoverViaSMS"
+        android:name="com.justjump.filmscave.users.RecoverViaSMSFragment"
+        android:label="fragment_recover_via_sms"
+        tools:layout="@layout/fragment_recover_via_sms" />
 
 </navigation>

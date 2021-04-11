@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +7,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/status_bar_size"
     android:background="@color/main_light_blue"
-    tools:context=".users.RecoverViaEmailFragment">
+    tools:context=".users.RecoverViaSMSFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -42,38 +41,51 @@
             app:layout_constraintGuide_percent="0.15" />
 
         <TextView
-            android:id="@+id/title_field"
+            android:id="@+id/title_insert_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title_via_email_field"
+            android:text="@string/title_insert_your_phone"
             android:textColor="@color/palette_white"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
 
         <TextView
-            android:id="@+id/text_field_info"
+            android:id="@+id/title_insert_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_insert_phone"
+            android:textColor="@color/palette_white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_insert_phone" />
+
+        <TextView
+            android:id="@+id/text_for_message_recovery_via_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
-            android:text="@string/id_message_for_recover_via_email"
             android:textColor="@color/palette_white"
+            android:text="@string/id_message_for_recover_via_sms"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_field" />
+            app:layout_constraintTop_toBottomOf="@+id/title_insert_number" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phone_number_textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="@string/email"
+            android:hint="@string/phone_number"
+            app:helperText="+441234567890"
+            app:helperTextTextColor="@color/palette_white"
             android:textColorHint="@color/palette_white"
             app:boxCornerRadiusBottomEnd="@dimen/circle_radius"
             app:boxCornerRadiusBottomStart="@dimen/circle_radius"
@@ -84,11 +96,11 @@
             app:hintTextColor="@color/palette_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_field_info"
+            app:layout_constraintTop_toBottomOf="@+id/text_for_message_recovery_via_phone"
             app:layout_constraintWidth_percent="0.6">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/data_email"
+                android:id="@+id/data_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/palette_white"
