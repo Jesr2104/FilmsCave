@@ -3,7 +3,6 @@ package com.justjump.filmscave.framework.room.users
 import android.content.Context
 import com.justjump.filmscave.data._interfaces.RoomFrameworkDataSource
 import com.justjump.filmscave.domain.users.UserStructureDataModel
-import java.util.ArrayList
 
 class RoomDataSource : RoomFrameworkDataSource {
 
