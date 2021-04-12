@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import com.justjump.filmscave.R
 import com.justjump.filmscave.databinding.FragmentRecoverViaEmailBinding
 
 import com.justjump.filmscave.users.viewmodel.RecoverViaEmailViewModel
@@ -15,6 +18,7 @@ class RecoverViaEmailFragment : Fragment(), RecoverViaEmailViewModel.Message {
 
     private lateinit var binding: FragmentRecoverViaEmailBinding
     private lateinit var recoverViaEmailViewModel: RecoverViaEmailViewModel
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +32,7 @@ class RecoverViaEmailFragment : Fragment(), RecoverViaEmailViewModel.Message {
 
         // initial the viewModel
         recoverViaEmailViewModel = ViewModelProvider(this).get(RecoverViaEmailViewModel()::class.java)
+        navController = view.findNavController()
 
         //********************************************************//
         //          Event of reset password
@@ -58,6 +63,9 @@ class RecoverViaEmailFragment : Fragment(), RecoverViaEmailViewModel.Message {
                 binding.dataEmail.error = getString(message)
             }
             else -> { Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show() }
+        }
+        if (success){
+            navController.navigate(R.id.action_recoverViaEmail_to_login)
         }
     }
 }

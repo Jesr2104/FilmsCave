@@ -50,10 +50,12 @@
         <action
             android:id="@+id/action_login_to_homeFragment"
             app:destination="@id/home" />
-
         <action
-            android:id="@+id/action_login_to_recoverPassFragment"
-            app:destination="@id/recoverPass" />
+            android:id="@+id/action_login_to_recoverViaEmail"
+            app:destination="@id/recoverViaEmail" />
+        <argument
+            android:name="emailUser"
+            app:argType="string" />
 
     </fragment>
 
@@ -70,35 +72,16 @@
 
     </fragment>
 
-    <!--  Fragment: RecoverPassFragment  -->
-    <fragment
-        android:id="@+id/recoverPass"
-        android:name="com.justjump.filmscave.users.RecoverPassFragment"
-        android:label="fragment_recover_pass"
-        tools:layout="@layout/fragment_recover_pass" >
-
-        <action
-            android:id="@+id/action_recoverPassFragment_to_recoverViaEmailFragment"
-            app:destination="@id/recoverViaEmail" />
-
-        <action
-            android:id="@+id/action_recoverPass_to_recoverViaSMS"
-            app:destination="@id/recoverViaSMS" />
-
-    </fragment>
-
     <!--  Fragment: RecoverViaEmailFragment  -->
     <fragment
         android:id="@+id/recoverViaEmail"
         android:name="com.justjump.filmscave.users.RecoverViaEmailFragment"
         android:label="fragment_recover_via_email"
-        tools:layout="@layout/fragment_recover_via_email" />
+        tools:layout="@layout/fragment_recover_via_email" >
 
-    <!--  Fragment: recoverViaSMSFragment  -->
-    <fragment
-        android:id="@+id/recoverViaSMS"
-        android:name="com.justjump.filmscave.users.RecoverViaSMSFragment"
-        android:label="fragment_recover_via_sms"
-        tools:layout="@layout/fragment_recover_via_sms" />
+        <action
+            android:id="@+id/action_recoverViaEmail_to_login"
+            app:destination="@id/login" />
+    </fragment>
 
 </navigation>

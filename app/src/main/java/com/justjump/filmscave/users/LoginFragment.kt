@@ -52,7 +52,7 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
 
         // recover the password
         binding.forgotPassword.setOnClickListener {
-            navController.navigate(R.id.action_login_to_recoverPassFragment)
+            navController.navigate(R.id.action_login_to_recoverViaEmail)
         }
 
         //********************************************************//
