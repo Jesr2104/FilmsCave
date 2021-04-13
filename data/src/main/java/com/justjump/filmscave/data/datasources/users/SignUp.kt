@@ -1,8 +1,12 @@
 package com.justjump.filmscave.data.datasources.users
 
 import android.content.Context
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.justjump.filmscave.data._interfaces.RoomFrameworkDataSource
 import com.justjump.filmscave.data._utils.Resource
 import com.justjump.filmscave.data._interfaces.SignUpIDataSource
@@ -25,7 +29,7 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
         userStructureDataModel: UserStructureDataModel ): LiveData<Resource<String>> {
 
         GlobalScope.launch(Dispatchers.Main) {
-            // check if the user name is able to used
+            // check if the username is able to used
             if (usersFirebase.checkUserName(userStructureDataModel.userName)){
                 /* Firebase Auth */
                 val result = usersFirebaseAuth.signUpUser(userValidationDataModel)
@@ -44,8 +48,19 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
         return messageCreateUser
     }
 
-    override fun signUpGoogle(userValidationDataModel: UserValidationDataModel): LiveData<Resource<String>> {
-        TODO("Not yet implemented")
+    override fun signUpGoogle(account: GoogleSignInAccount): LiveData<Resource<String>> {
+
+        GlobalScope.launch(Dispatchers.Main) {
+            // generate unique username
+            //
+            val result = usersFirebaseAuth.signUpUserGoogle(account)
+            if (result.status){
+                messageCreateUser.value = Resource.success()
+            } else {
+                messageCreateUser.value = Resource.error(result.codeException)
+            }
+        }
+        return messageCreateUser
     }
 
     override fun signUpFacebook(userValidationDataModel: UserValidationDataModel): LiveData<Resource<String>> {

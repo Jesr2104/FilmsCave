@@ -1,20 +1,33 @@
 package com.justjump.filmscave.users
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.GoogleAuthProvider
 import com.justjump.filmscave.R
 import com.justjump.filmscave._utils.validatePassword
+import com.justjump.filmscave.data._utils.Status
+import com.justjump.filmscave.data.datasources.users.SignUp
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
+import com.justjump.filmscave.framework.room.users.RoomDataSource
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
 
 class SignUpFragment : Fragment(), SignUpViewModel.Message {
+
+    companion object{
+        const val GOOGLE_SIGN_IN = 100
+    }
 
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var signUpViewModel:SignUpViewModel
@@ -61,6 +74,10 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
             }
         }
 
+        binding.iconGoogle.setOnClickListener {
+            getTokenGoogle()
+        }
+
         //********************************************************//
         //          Event to go back
         //********************************************************//
@@ -85,5 +102,47 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
             else -> { Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show() }
         }
         if (success){ navController.navigate(R.id.action_signUp_to_homeFragment) }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == GOOGLE_SIGN_IN){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            val account = task.getResult(ApiException::class.java)
+
+            if (account != null){
+                SignUp(RoomDataSource()).signUpGoogle(account).observeForever{
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            Toast.makeText(requireContext(), "correctamente", Toast.LENGTH_SHORT).show()
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(requireContext(), it.codeException, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //********************************************************//
+    //          Google Token
+    //********************************************************//
+    private fun getTokenGoogle(){
+        val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        val googleClient = GoogleSignIn.getClient(requireContext(), googleConf)
+        startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+    }
+
+    //********************************************************//
+    //          Facebook Token
+    //********************************************************//
+    private fun getTokenFacebook(){
+
     }
 }

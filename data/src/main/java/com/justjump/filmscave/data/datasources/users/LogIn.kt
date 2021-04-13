@@ -22,7 +22,7 @@ class LogIn(private val roomFrameworkDataSource: RoomFrameworkDataSource): LogIn
     override fun logIn( appContext: Context, userValidationDataModel: UserValidationDataModel
         ): LiveData<Resource<String>> {
         GlobalScope.launch(Dispatchers.Main) {
-            val result = usersFirebaseAuth.logIn(userValidationDataModel)
+            val result = usersFirebaseAuth.logInUser(userValidationDataModel)
             if (result.status){
                 if (/* Room Active Session => */ roomFrameworkDataSource.insertNewUser(appContext,
                     /* Firebase Cloud FireStore => */ usersFirebase.getUser(userValidationDataModel.email))){

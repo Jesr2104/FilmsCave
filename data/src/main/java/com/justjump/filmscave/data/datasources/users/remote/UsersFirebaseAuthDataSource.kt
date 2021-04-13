@@ -1,7 +1,11 @@
 package com.justjump.filmscave.data.datasources.users.remote
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.GoogleAuthProvider
 import com.justjump.filmscave.domain._utils.ResultAuth
 import com.justjump.filmscave.domain.users.UserValidationDataModel
 import kotlinx.coroutines.tasks.await
@@ -21,7 +25,15 @@ class UsersFirebaseAuthDataSource {
         } catch (e: FirebaseAuthException) {ResultAuth(false, e.errorCode)}
     }
 
-    suspend fun logIn(userValidationDataModel: UserValidationDataModel): ResultAuth {
+    suspend fun signUpUserGoogle(account: GoogleSignInAccount): ResultAuth{
+        return try {
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            databaseInstance.signInWithCredential(credential).await()
+            ResultAuth(true)
+        } catch (e: FirebaseAuthException) {ResultAuth(false, e.errorCode)}
+    }
+
+    suspend fun logInUser(userValidationDataModel: UserValidationDataModel): ResultAuth {
         return try {
             databaseInstance.signInWithEmailAndPassword(
                 userValidationDataModel.email.trim(),

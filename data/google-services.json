@@ -9,10 +9,18 @@
       "client_info": {
         "mobilesdk_app_id": "1:143297869344:android:299fef64d306d5e2992e45",
         "android_client_info": {
-          "package_name": "com.justjump.filmscave.data"
+          "package_name": "com.justjump.filmscave"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "143297869344-m6n41io5u98va8slbqcqpnmp1l2b94s7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.justjump.filmscave",
+            "certificate_hash": "a3b2e4deb94ed9011a2ca59c0f5db13efa39cfc9"
+          }
+        },
         {
           "client_id": "143297869344-a17bf1cru50bl40op9uur0a69772rpi2.apps.googleusercontent.com",
           "client_type": 3
