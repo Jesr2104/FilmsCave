@@ -16,7 +16,9 @@ interface SignUpIDataSource {
     ): LiveData<Resource<String>>
 
     fun signUpGoogle(
-        account: GoogleSignInAccount
+        appContext: Context,
+        account: GoogleSignInAccount,
+        userStructureDataModel: UserStructureDataModel
     ): LiveData<Resource<String>>
 
     fun signUpFacebook(

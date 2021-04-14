@@ -1,8 +1,7 @@
 package com.justjump.filmscave.data.datasources.users.remote
 
+import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.GoogleAuthProvider
@@ -49,5 +48,20 @@ class UsersFirebaseAuthDataSource {
                 userValidationDataModel.email).await()
             ResultAuth(true)
         } catch (e: FirebaseAuthException){ ResultAuth(false, e.errorCode) }
+    }
+
+    suspend fun checkEmail(email: String): Boolean{
+        var emailIsAlreadyUsed = false
+        try {
+            databaseInstance.fetchSignInMethodsForEmail(email)
+                .addOnSuccessListener {
+                    if (it.signInMethods?.size == 0){
+                        emailIsAlreadyUsed = true
+                    }
+                }.await()
+        } catch (e: FirebaseAuthException){
+            Log.e("Jesr2104","${e.message}")
+        }
+        return emailIsAlreadyUsed
     }
 }

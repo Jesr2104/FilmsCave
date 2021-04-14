@@ -3,6 +3,8 @@ package com.justjump.filmscave.users.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 import com.justjump.filmscave.R
 import com.justjump.filmscave.data._utils.Status
 import com.justjump.filmscave.data.datasources.users.SignUp
@@ -34,6 +36,19 @@ class SignUpViewModel : ViewModel() {
                         "ERROR_EMAIL_ALREADY_IN_USE" ->{ signUpFragment.showMessage(R.string.id_message_email_used, false, 2) }
                         "ERROR_USERNAME_NOT_ABLE" ->{signUpFragment.showMessage(R.string.id_message_username_false,false, 1)}
                     }}}}
+
+    fun signUpUserGoogle(signUpFragment: SignUpFragment, appContext: Context, account: GoogleSignInAccount, task: Task<GoogleSignInAccount>)
+        = SignUp(RoomDataSource()).signUpGoogle(appContext, account,
+            UserStructureDataModel( userName = task.result!!.email!!, email = task.result!!.email!!, avatar = task.result!!.photoUrl!!.toString()) ).observeForever{
+            when (it.status) {
+                Status.SUCCESS -> {
+                    signUpFragment.showMessage(R.string.id_message_sign_up_successful,true, 0)
+                }
+                Status.ERROR -> {
+                    when (it.codeException){
+                        "ERROR_EMAIL_ALREADY_IN_USE" -> {signUpFragment.showMessage(R.string.id_message_email_used, false, 3)}
+                    }}}}
+
 
     private fun createUserValidation() = UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
 
