@@ -11,6 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -28,6 +33,7 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var signUpViewModel:SignUpViewModel
     private lateinit var navController: NavController
+    private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,6 +84,13 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
         }
 
         //********************************************************//
+        //          Event of SignUp with facebook token
+        //********************************************************//
+        binding.iconFacebook.setOnClickListener {
+            getTokenFacebook()
+        }
+
+        //********************************************************//
         //          Event to go back
         //********************************************************//
         binding.buttonBack.setOnClickListener {
@@ -106,6 +119,7 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
     // retrieve google user token
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == GOOGLE_SIGN_IN){
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -135,6 +149,25 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
     //          Facebook Token
     //********************************************************//
     private fun getTokenFacebook(){
+        LoginManager.getInstance().logInWithReadPermissions(this@SignUpFragment, listOf("email"))
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult?) {
+                    result?.let {
+                        Toast.makeText(requireContext(), "a successful", Toast.LENGTH_SHORT).show()
+                        val token = it.accessToken
+                        signUpViewModel.signUpFacebook(this@SignUpFragment, requireContext(), token)
+                    }
+                }
 
+                override fun onCancel() {
+                    Toast.makeText(requireContext(), "se ha cancelado", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onError(error: FacebookException?) {
+                    Toast.makeText(requireContext(), "${error!!.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
     }
 }

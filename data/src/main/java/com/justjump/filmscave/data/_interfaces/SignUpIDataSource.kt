@@ -2,6 +2,7 @@ package com.justjump.filmscave.data._interfaces
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.justjump.filmscave.data._utils.Resource
 import com.justjump.filmscave.domain.users.UserStructureDataModel
@@ -22,6 +23,8 @@ interface SignUpIDataSource {
     ): LiveData<Resource<String>>
 
     fun signUpFacebook(
-        userValidationDataModel: UserValidationDataModel
+        appContext: Context,
+        token: AccessToken,
+        userStructureDataModel: UserStructureDataModel
     ): LiveData<Resource<String>>
 }

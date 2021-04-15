@@ -64,4 +64,7 @@ dependencies {
     // Firebase Auth - google SignIn
     implementation 'com.google.firebase:firebase-auth:20.0.4'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    // Facebook Sign
+    implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
 }

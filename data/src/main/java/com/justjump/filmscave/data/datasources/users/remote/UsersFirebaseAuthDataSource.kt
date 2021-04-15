@@ -1,7 +1,9 @@
 package com.justjump.filmscave.data.datasources.users.remote
 
 import android.util.Log
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.GoogleAuthProvider
@@ -30,6 +32,26 @@ class UsersFirebaseAuthDataSource {
             databaseInstance.signInWithCredential(credential).await()
             ResultAuth(true)
         } catch (e: FirebaseAuthException) {ResultAuth(false, e.errorCode)}
+    }
+
+    suspend fun signUpUserFacebook(token: AccessToken): HashMap<String, String> {
+        val result = hashMapOf(
+            "email" to "",
+            "avatar" to ""
+        )
+        try {
+            val credential = FacebookAuthProvider.getCredential(token.token)
+            databaseInstance.signInWithCredential(credential)
+                .addOnCompleteListener {
+                    if (it.isSuccessful){
+                        result["email"] = it.result?.user?.email.toString()
+                        result["avatar"] = it.result?.user?.photoUrl.toString()
+                    }
+                }.await()
+        } catch (e: FirebaseAuthException) {
+
+        }
+        return result
     }
 
     suspend fun logInUser(userValidationDataModel: UserValidationDataModel): ResultAuth {

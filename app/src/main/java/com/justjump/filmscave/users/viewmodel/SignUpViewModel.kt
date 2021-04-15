@@ -3,6 +3,7 @@ package com.justjump.filmscave.users.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.tasks.Task
 import com.justjump.filmscave.R
@@ -49,6 +50,17 @@ class SignUpViewModel : ViewModel() {
                         "ERROR_EMAIL_ALREADY_IN_USE" -> {signUpFragment.showMessage(R.string.id_message_email_used, false, 3)}
                     }}}}
 
+    fun signUpFacebook(signUpFragment: SignUpFragment, appContext: Context, token: AccessToken)
+        = SignUp(RoomDataSource()).signUpFacebook( appContext, token,
+            createUserStructureDataModel()).observeForever{
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        signUpFragment.showMessage(R.string.id_message_sign_up_successful, true, 0)
+                    }
+                    Status.ERROR -> {
+                        when (it.codeException) {
+                            "ERROR_EMAIL_ALREADY_IN_USE" -> {signUpFragment.showMessage(R.string.id_message_email_used, false, 3)}
+                        }}}}
 
     private fun createUserValidation() = UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
 
