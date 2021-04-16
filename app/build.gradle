@@ -66,5 +66,5 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
     // Facebook Sign
-    implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
+    implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
 }

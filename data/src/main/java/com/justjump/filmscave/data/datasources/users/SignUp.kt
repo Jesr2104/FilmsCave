@@ -78,11 +78,16 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
     ): LiveData<Resource<String>> {
 
         GlobalScope.launch(Dispatchers.Main) {
+
+
+//            token.userId.
+
+
             if (/*usersFirebaseAuth.checkEmail(userStructureDataModel.email)*/true){
                 val result = usersFirebaseAuth.signUpUserFacebook(token)
 
                 if (result["email"]!!.isNotEmpty()){
-                    var newUser = UserStructureDataModel(
+                    val newUser = UserStructureDataModel(
                         email = result["email"].toString(),
                         userName = result["email"].toString(),
                         avatar = result["avatar"].toString() )

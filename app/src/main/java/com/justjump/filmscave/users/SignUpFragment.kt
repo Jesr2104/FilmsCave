@@ -11,9 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,6 +21,7 @@ import com.justjump.filmscave.R
 import com.justjump.filmscave._utils.validatePassword
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
+import org.json.JSONObject
 
 class SignUpFragment : Fragment(), SignUpViewModel.Message {
 
@@ -156,7 +155,28 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
                     result?.let {
                         Toast.makeText(requireContext(), "a successful", Toast.LENGTH_SHORT).show()
                         val token = it.accessToken
-                        signUpViewModel.signUpFacebook(this@SignUpFragment, requireContext(), token)
+
+
+
+
+                        GraphRequest.newMeRequest(
+                            token,
+                            object : GraphRequest.GraphJSONObjectCallback {
+                                override fun onCompleted(
+                                    `object`: JSONObject?,
+                                    response: GraphResponse?
+                                ) {
+                                    val email = `object`!!.get("email")
+                                    Toast.makeText(requireContext(), "$email", Toast.LENGTH_SHORT).show()
+                                }
+                            }).apply {
+                            val bundle = Bundle()
+                            bundle.putString("fields","email")
+                            parameters =  bundle
+                            }.executeAsync()
+
+
+                        //signUpViewModel.signUpFacebook(this@SignUpFragment, requireContext(), token)
                     }
                 }
 
