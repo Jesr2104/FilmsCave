@@ -21,6 +21,7 @@ import com.justjump.filmscave.R
 import com.justjump.filmscave._utils.validatePassword
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
+import kotlinx.coroutines.GlobalScope
 import org.json.JSONObject
 
 class SignUpFragment : Fragment(), SignUpViewModel.Message {
@@ -153,37 +154,20 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
             object : FacebookCallback<LoginResult> {
                 override fun onSuccess(result: LoginResult?) {
                     result?.let {
-                        Toast.makeText(requireContext(), "a successful", Toast.LENGTH_SHORT).show()
-                        val token = it.accessToken
-
-
-
-
-                        GraphRequest.newMeRequest(
-                            token,
+                        GraphRequest.newMeRequest(it.accessToken,
                             object : GraphRequest.GraphJSONObjectCallback {
-                                override fun onCompleted(
-                                    `object`: JSONObject?,
-                                    response: GraphResponse?
-                                ) {
+                                override fun onCompleted(`object`: JSONObject?, response: GraphResponse?) {
                                     val email = `object`!!.get("email")
-                                    Toast.makeText(requireContext(), "$email", Toast.LENGTH_SHORT).show()
+                                    signUpViewModel.signUpFacebook(this@SignUpFragment, requireContext(), it.accessToken, email.toString())
                                 }
                             }).apply {
-                            val bundle = Bundle()
-                            bundle.putString("fields","email")
-                            parameters =  bundle
+                                val bundle = Bundle()
+                                bundle.putString("fields","email")
+                                parameters =  bundle
                             }.executeAsync()
-
-
-                        //signUpViewModel.signUpFacebook(this@SignUpFragment, requireContext(), token)
                     }
                 }
-
-                override fun onCancel() {
-                    Toast.makeText(requireContext(), "se ha cancelado", Toast.LENGTH_SHORT).show()
-                }
-
+                override fun onCancel() {}
                 override fun onError(error: FacebookException?) {
                     Toast.makeText(requireContext(), "${error!!.message}", Toast.LENGTH_SHORT)
                         .show()

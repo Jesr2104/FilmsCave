@@ -50,8 +50,8 @@ class SignUpViewModel : ViewModel() {
                         "ERROR_EMAIL_ALREADY_IN_USE" -> {signUpFragment.showMessage(R.string.id_message_email_used, false, 3)}
                     }}}}
 
-    fun signUpFacebook(signUpFragment: SignUpFragment, appContext: Context, token: AccessToken)
-        = SignUp(RoomDataSource()).signUpFacebook( appContext, token,
+    fun signUpFacebook(signUpFragment: SignUpFragment,appContext: Context,token: AccessToken,emailFromTokenFacebook: String)
+        = SignUp(RoomDataSource()).signUpFacebook( appContext, token, emailFromTokenFacebook,
             createUserStructureDataModel()).observeForever{
                 when (it.status) {
                     Status.SUCCESS -> {

@@ -74,6 +74,7 @@ class UsersFirebaseAuthDataSource {
 
     suspend fun checkEmail(email: String): Boolean{
         var emailIsAlreadyUsed = false
+
         try {
             databaseInstance.fetchSignInMethodsForEmail(email)
                 .addOnSuccessListener {

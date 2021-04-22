@@ -25,6 +25,7 @@ interface SignUpIDataSource {
     fun signUpFacebook(
         appContext: Context,
         token: AccessToken,
+        emailFromTokenFacebook: String,
         userStructureDataModel: UserStructureDataModel
     ): LiveData<Resource<String>>
 }
