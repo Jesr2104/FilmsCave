@@ -52,5 +52,5 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
 
     // Facebook Sign
-    implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 }

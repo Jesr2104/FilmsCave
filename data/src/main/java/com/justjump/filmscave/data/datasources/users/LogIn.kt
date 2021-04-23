@@ -3,6 +3,7 @@ package com.justjump.filmscave.data.datasources.users
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.justjump.filmscave.data._interfaces.LogInIDataSource
 import com.justjump.filmscave.data._interfaces.RoomFrameworkDataSource
 import com.justjump.filmscave.data._utils.Resource
@@ -31,5 +32,10 @@ class LogIn(private val roomFrameworkDataSource: RoomFrameworkDataSource): LogIn
             } else {messageCreateUser.value = Resource.error(result.codeException)}
         }
         return messageCreateUser
+    }
+
+    override fun logInGoogle(appContext: Context,account: GoogleSignInAccount
+        ): LiveData<Resource<String>> {
+        TODO("Not yet implemented")
     }
 }

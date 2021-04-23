@@ -1,7 +1,6 @@
 package com.justjump.filmscave.data.datasources.users
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.facebook.AccessToken
@@ -25,7 +24,7 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
 
     // this is the implementation of the signUp user with email and password
     override fun signUp(appContext: Context, userValidationDataModel: UserValidationDataModel,userStructureDataModel: UserStructureDataModel
-    ): LiveData<Resource<String>> {
+        ): LiveData<Resource<String>> {
 
         GlobalScope.launch(Dispatchers.Main) {
             // check if the username is able to used
@@ -48,7 +47,7 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
 
     // this is the implementation of the signUp user with google
     override fun signUpGoogle(appContext: Context, account: GoogleSignInAccount, userStructureDataModel: UserStructureDataModel
-    ): LiveData<Resource<String>> {
+        ): LiveData<Resource<String>> {
 
         GlobalScope.launch(Dispatchers.Main) {
             if (usersFirebaseAuth.checkEmail(userStructureDataModel.email)){
@@ -68,7 +67,7 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
     }
 
     override fun signUpFacebook(appContext: Context, token: AccessToken, emailFromTokenFacebook: String, userStructureDataModel: UserStructureDataModel
-    ): LiveData<Resource<String>> {
+        ): LiveData<Resource<String>> {
 
         GlobalScope.launch(Dispatchers.Main) {
             if (usersFirebaseAuth.checkEmail(emailFromTokenFacebook)){
