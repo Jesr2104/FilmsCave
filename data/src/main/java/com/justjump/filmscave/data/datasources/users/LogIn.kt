@@ -36,6 +36,19 @@ class LogIn(private val roomFrameworkDataSource: RoomFrameworkDataSource): LogIn
 
     override fun logInGoogle(appContext: Context,account: GoogleSignInAccount
         ): LiveData<Resource<String>> {
-        TODO("Not yet implemented")
+        GlobalScope.launch(Dispatchers.Main) {
+            if (!usersFirebaseAuth.checkEmail(account.email.toString())){
+                val result = usersFirebaseAuth.signUpUserGoogle(account)
+                if (result.status){
+                    if (/* Room Active Session => */ roomFrameworkDataSource.insertNewUser(appContext,
+                        /* Firebase Cloud FireStore => */ usersFirebase.getUser(account.email.toString()))){
+                        messageCreateUser.value = Resource.success()
+                    }
+                } else {messageCreateUser.value = Resource.error(result.codeException)}
+            } else {
+                messageCreateUser.value = Resource.error("ERROR_USER_IS_NOT_REGISTERED")
+            }
+        }
+        return messageCreateUser
     }
 }

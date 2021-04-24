@@ -3,6 +3,8 @@ package com.justjump.filmscave.users.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.tasks.Task
 import com.justjump.filmscave.R
 import com.justjump.filmscave.data._utils.Status
 import com.justjump.filmscave.data.datasources.users.LogIn
@@ -33,6 +35,19 @@ class LogInViewModel: ViewModel() {
                     "ERROR_INVALID_EMAIL" -> { logInFragment.showMessage(R.string.id_message_email_invalid, false,1)}
                     "ERROR_USER_NOT_FOUND" -> { logInFragment.showMessage(R.string.id_message_email_not_registered, false,0)}
                 }}}}
+
+    fun logInUserGoogle(loginFragment: LoginFragment, appContext: Context, account: GoogleSignInAccount) {
+        LogIn(RoomDataSource()).logInGoogle(appContext, account).observeForever{
+            when (it.status) {
+                Status.SUCCESS -> {
+                    loginFragment.showMessage(R.string.id_message_sign_up_successful,true, 0)
+                }
+                Status.ERROR -> {
+
+                }
+            }
+        }
+    }
 
     private fun createUserValidation() = UserValidationDataModel(emailValue.value.toString(), passwordValue.value.toString())
 }

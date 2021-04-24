@@ -1,6 +1,8 @@
 package com.justjump.filmscave.users
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +11,24 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.facebook.CallbackManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.justjump.filmscave.R
 import com.justjump.filmscave.databinding.FragmentLoginBinding
 import com.justjump.filmscave.users.viewmodel.LogInViewModel
 
 class LoginFragment : Fragment(),LogInViewModel.Message {
 
+    companion object{
+        const val GOOGLE_SIGN_IN = 100
+    }
+
     private lateinit var binding: FragmentLoginBinding
     private lateinit var logInViewModel: LogInViewModel
     private lateinit var navController: NavController
+    private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +61,10 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
             }
         }
 
+        binding.iconGoogle.setOnClickListener {
+            getTokenGoogle()
+        }
+
         // recover the password
         binding.forgotPassword.setOnClickListener {
             navController.navigate(R.id.action_login_to_recoverViaEmail)
@@ -60,6 +75,21 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         //********************************************************//
         binding.buttonBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
+    // retrieve google user token
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == SignUpFragment.GOOGLE_SIGN_IN){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            try {
+                val account = task.getResult(ApiException::class.java)
+                if (account != null) { logInViewModel.logInUserGoogle(this, requireContext(),account) }
+            } catch (e: Exception) { Log.e("Jesr2104", e.message!!) }
         }
     }
 
@@ -80,5 +110,19 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
             else -> { Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show() }
         }
         if (success){ navController.navigate(R.id.action_login_to_homeFragment) }
+    }
+
+    //********************************************************//
+    //          Google Token
+    //********************************************************//
+    private fun getTokenGoogle(){
+        val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        val googleClient = GoogleSignIn.getClient(requireContext(), googleConf)
+        googleClient.signOut()
+        startActivityForResult(googleClient.signInIntent, SignUpFragment.GOOGLE_SIGN_IN)
     }
 }
