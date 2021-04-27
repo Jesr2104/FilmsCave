@@ -55,7 +55,8 @@
             app:destination="@id/recoverViaEmail" />
         <argument
             android:name="emailUser"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="-1"/>
 
     </fragment>
 
@@ -68,7 +69,9 @@
 
         <action
             android:id="@+id/action_homeFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/mainActivity"
+            app:popUpTo="@+id/mainActivity"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 
@@ -81,7 +84,10 @@
 
         <action
             android:id="@+id/action_recoverViaEmail_to_login"
-            app:destination="@id/login" />
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
+
     </fragment>
 
 </navigation>

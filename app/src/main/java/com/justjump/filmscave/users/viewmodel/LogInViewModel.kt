@@ -43,7 +43,7 @@ class LogInViewModel: ViewModel() {
                     loginFragment.showMessage(R.string.id_message_sign_up_successful,true, 0)
                 }
                 Status.ERROR -> {
-
+                    // No error has been identified
                 }
             }
         }

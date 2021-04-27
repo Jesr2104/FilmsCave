@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -29,6 +30,7 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
     private lateinit var logInViewModel: LogInViewModel
     private lateinit var navController: NavController
     private val callbackManager = CallbackManager.Factory.create()
+    private val args: LoginFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +46,11 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         // initial the viewModel
         logInViewModel = ViewModelProvider(this).get(LogInViewModel()::class.java)
         navController = view.findNavController()
+
+        if (args.emailUser != "-1"){
+            binding.dataEmail.setText(args.emailUser)
+            binding.dataPassword.requestFocus()
+        }
 
         //********************************************************//
         //          Event of logIn User

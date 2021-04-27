@@ -149,6 +149,7 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
     //          Facebook Token
     //********************************************************//
     private fun getTokenFacebook(){
+        LoginManager.getInstance().logOut()
         LoginManager.getInstance().logInWithReadPermissions(this@SignUpFragment, listOf("email"))
         LoginManager.getInstance().registerCallback(callbackManager,
             object : FacebookCallback<LoginResult> {

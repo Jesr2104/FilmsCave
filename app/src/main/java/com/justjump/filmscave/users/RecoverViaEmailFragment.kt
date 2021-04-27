@@ -65,7 +65,8 @@ class RecoverViaEmailFragment : Fragment(), RecoverViaEmailViewModel.Message {
             else -> { Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show() }
         }
         if (success){
-            navController.navigate(R.id.action_recoverViaEmail_to_login)
+            val action = RecoverViaEmailFragmentDirections.actionRecoverViaEmailToLogin(binding.dataEmail.text!!.toString())
+            navController.navigate(action)
         }
     }
 }
