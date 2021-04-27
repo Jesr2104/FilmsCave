@@ -67,4 +67,7 @@ dependencies {
 
     // Facebook Sign
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+
+    // circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

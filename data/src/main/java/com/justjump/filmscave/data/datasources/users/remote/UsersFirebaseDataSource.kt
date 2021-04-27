@@ -51,6 +51,7 @@ class UsersFirebaseDataSource {
             "date" to userStructureDataModel.date,
             "setting" to setting,
             "mobileNumber" to userStructureDataModel.mobileNumber,
+            "typeUser" to userStructureDataModel.typeUser
         )
 
         return try {
@@ -85,7 +86,8 @@ class UsersFirebaseDataSource {
                 avatar = usersDataFireStore.get("avatar") as String,
                 date = usersDataFireStore.get("date") as String,
                 mobileNumber = usersDataFireStore.get("mobileNumber") as String,
-                setting = usersDataFireStore.get("setting") as HashMap<String, Any>
+                setting = usersDataFireStore.get("setting") as HashMap<String, Any>,
+                typeUser = usersDataFireStore.get("typeUser") as String
             )
         } catch (e: FirebaseException){
             UserStructureDataModel()

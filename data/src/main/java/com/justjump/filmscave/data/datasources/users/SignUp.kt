@@ -32,6 +32,7 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
                 /* Firebase Auth */
                 val result = usersFirebaseAuth.signUpUser(userValidationDataModel)
                 if (result.status){
+                    userStructureDataModel.typeUser = "FilmsCaveUser"
                     if (/* Room Active Session => */ roomFrameworkDataSource.insertNewUser(
                             appContext,
                             userStructureDataModel
@@ -53,6 +54,7 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
             if (usersFirebaseAuth.checkEmail(userStructureDataModel.email)){
                 val result = usersFirebaseAuth.signUpUserGoogle(account)
                 if (result.status){
+                    userStructureDataModel.typeUser = "GoogleUser"
                     if (/* Room Active Session => */ roomFrameworkDataSource.insertNewUser(
                         appContext,
                         userStructureDataModel
@@ -77,7 +79,9 @@ class SignUp(private val roomFrameworkDataSource: RoomFrameworkDataSource) : Sig
                     val newUser = UserStructureDataModel(
                         email = result["email"].toString(),
                         userName = result["email"].toString(),
-                        avatar = result["avatar"].toString() )
+                        avatar = result["avatar"].toString(),
+                        typeUser = "FacebookUser"
+                    )
 
                     /* Room Active Session => */
                     if (roomFrameworkDataSource.insertNewUser(appContext,newUser) &&

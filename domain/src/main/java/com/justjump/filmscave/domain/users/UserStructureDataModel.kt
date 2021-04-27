@@ -6,6 +6,7 @@ import kotlin.collections.HashMap
 
 data class UserStructureDataModel(
     val userName: String = "",
+    var typeUser: String = "",
     val email: String = "",
     val avatar: String = "avatar/default_avatar.svg",
     val mobileNumber: String = "",
