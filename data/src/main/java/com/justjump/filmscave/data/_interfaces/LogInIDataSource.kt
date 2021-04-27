@@ -2,6 +2,7 @@ package com.justjump.filmscave.data._interfaces
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.justjump.filmscave.data._utils.Resource
 import com.justjump.filmscave.domain.users.UserValidationDataModel
@@ -16,5 +17,11 @@ interface LogInIDataSource {
     fun logInGoogle(
         appContext: Context,
         account: GoogleSignInAccount,
+    ): LiveData<Resource<String>>
+
+    fun logInFacebook(
+        appContext: Context,
+        token: AccessToken,
+        emailFromTokenFacebook: String
     ): LiveData<Resource<String>>
 }

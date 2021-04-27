@@ -12,13 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import com.facebook.CallbackManager
+import com.facebook.*
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.justjump.filmscave.R
 import com.justjump.filmscave.databinding.FragmentLoginBinding
 import com.justjump.filmscave.users.viewmodel.LogInViewModel
+import org.json.JSONObject
 
 class LoginFragment : Fragment(),LogInViewModel.Message {
 
@@ -70,6 +73,10 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
 
         binding.iconGoogle.setOnClickListener {
             getTokenGoogle()
+        }
+
+        binding.iconFacebook.setOnClickListener {
+            getTokenFacebook()
         }
 
         // recover the password
@@ -131,5 +138,33 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         val googleClient = GoogleSignIn.getClient(requireContext(), googleConf)
         googleClient.signOut()
         startActivityForResult(googleClient.signInIntent, SignUpFragment.GOOGLE_SIGN_IN)
+    }
+
+    private fun getTokenFacebook(){
+        LoginManager.getInstance().logOut()
+        LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment, listOf("email"))
+        LoginManager.getInstance().registerCallback(callbackManager,
+            object : FacebookCallback<LoginResult> {
+                override fun onSuccess(result: LoginResult?) {
+                    result?.let {
+                        GraphRequest.newMeRequest(it.accessToken,
+                            object : GraphRequest.GraphJSONObjectCallback {
+                                override fun onCompleted(`object`: JSONObject?, response: GraphResponse?) {
+                                    val email = `object`!!.get("email")
+                                    logInViewModel.logInFacebook(this@LoginFragment, requireContext(), it.accessToken, email.toString())
+                                }
+                            }).apply {
+                            val bundle = Bundle()
+                            bundle.putString("fields","email")
+                            parameters =  bundle
+                        }.executeAsync()
+                    }
+                }
+                override fun onCancel() {}
+                override fun onError(error: FacebookException?) {
+                    Toast.makeText(requireContext(), "${error!!.message}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
     }
 }

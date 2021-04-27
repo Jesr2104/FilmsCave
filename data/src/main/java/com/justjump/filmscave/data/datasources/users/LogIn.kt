@@ -1,8 +1,10 @@
 package com.justjump.filmscave.data.datasources.users
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.facebook.AccessToken
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.justjump.filmscave.data._interfaces.LogInIDataSource
 import com.justjump.filmscave.data._interfaces.RoomFrameworkDataSource
@@ -44,7 +46,25 @@ class LogIn(private val roomFrameworkDataSource: RoomFrameworkDataSource): LogIn
                         /* Firebase Cloud FireStore => */ usersFirebase.getUser(account.email.toString()))){
                         messageCreateUser.value = Resource.success()
                     }
-                } else {messageCreateUser.value = Resource.error(result.codeException)}
+                } else {Log.e("Jesr2104","the user has not been logged in correctly")}
+            } else {
+                messageCreateUser.value = Resource.error("ERROR_USER_IS_NOT_REGISTERED")
+            }
+        }
+        return messageCreateUser
+    }
+
+    override fun logInFacebook(appContext: Context,token: AccessToken,emailFromTokenFacebook: String
+        ): LiveData<Resource<String>> {
+        GlobalScope.launch(Dispatchers.Main) {
+            if (!usersFirebaseAuth.checkEmail(emailFromTokenFacebook)){
+                val result = usersFirebaseAuth.signUpUserFacebook(token)
+                if (result["email"] != ""){
+                    if (/* Room Active Session => */ roomFrameworkDataSource.insertNewUser(appContext,
+                        /* Firebase Cloud FireStore => */ usersFirebase.getUser(result["email"].toString()))){
+                        messageCreateUser.value = Resource.success()
+                    }
+                } else {Log.e("Jesr2104","the user has not been logged in correctly")}
             } else {
                 messageCreateUser.value = Resource.error("ERROR_USER_IS_NOT_REGISTERED")
             }
