@@ -39,7 +39,7 @@ class LogInViewModel: ViewModel() {
         = LogIn(RoomDataSource()).logInGoogle(appContext, account).observeForever{
             when (it.status) {
                 Status.SUCCESS -> {
-                    loginFragment.showMessage(R.string.id_message_sign_up_successful,true, 0)
+                    loginFragment.showMessage(R.string.id_message_login_successful,true, 0)
                 }
                 Status.ERROR -> {
                     when (it.codeException){
@@ -51,7 +51,7 @@ class LogInViewModel: ViewModel() {
         = LogIn(RoomDataSource()).logInFacebook(appContext,token,facebookEmail).observeForever{
         when (it.status) {
             Status.SUCCESS -> {
-                loginFragment.showMessage(R.string.id_message_sign_up_successful,true, 0)
+                loginFragment.showMessage(R.string.id_message_login_successful,true, 0)
             }
             Status.ERROR -> {
                 when (it.codeException){

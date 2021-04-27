@@ -21,7 +21,6 @@ import com.justjump.filmscave.R
 import com.justjump.filmscave._utils.validatePassword
 import com.justjump.filmscave.databinding.FragmentSignUpBinding
 import com.justjump.filmscave.users.viewmodel.SignUpViewModel
-import kotlinx.coroutines.GlobalScope
 import org.json.JSONObject
 
 class SignUpFragment : Fragment(), SignUpViewModel.Message {
@@ -80,6 +79,7 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
         //          Event of SignUp with google token
         //********************************************************//
         binding.iconGoogle.setOnClickListener {
+            binding.loading.visibility = View.VISIBLE
             getTokenGoogle()
         }
 
@@ -87,6 +87,7 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
         //          Event of SignUp with facebook token
         //********************************************************//
         binding.iconFacebook.setOnClickListener {
+            binding.loading.visibility = View.VISIBLE
             getTokenFacebook()
         }
 

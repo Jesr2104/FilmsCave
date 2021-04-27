@@ -72,10 +72,12 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         }
 
         binding.iconGoogle.setOnClickListener {
+            binding.loading.visibility = View.VISIBLE
             getTokenGoogle()
         }
 
         binding.iconFacebook.setOnClickListener {
+            binding.loading.visibility = View.VISIBLE
             getTokenFacebook()
         }
 
@@ -140,6 +142,9 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
         startActivityForResult(googleClient.signInIntent, SignUpFragment.GOOGLE_SIGN_IN)
     }
 
+    //********************************************************//
+    //          Facebook Token
+    //********************************************************//
     private fun getTokenFacebook(){
         LoginManager.getInstance().logOut()
         LoginManager.getInstance().logInWithReadPermissions(this@LoginFragment, listOf("email"))
