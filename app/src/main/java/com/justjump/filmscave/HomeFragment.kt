@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.facebook.login.LoginManager
-import com.google.firebase.auth.FirebaseAuth
 import com.justjump.filmscave.data.datasources.users.local.UsersLocalDataSource
 import com.justjump.filmscave.databinding.FragmentHomeBinding
 import com.justjump.filmscave.framework.room.users.RoomDataSource

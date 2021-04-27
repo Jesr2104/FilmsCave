@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.justjump.filmscave.R
 import com.justjump.filmscave.databinding.FragmentRecoverViaEmailBinding
 
 import com.justjump.filmscave.users.viewmodel.RecoverViaEmailViewModel
