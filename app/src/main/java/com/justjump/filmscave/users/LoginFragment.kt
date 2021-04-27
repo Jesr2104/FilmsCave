@@ -105,7 +105,10 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) { logInViewModel.logInUserGoogle(this, requireContext(),account) }
-            } catch (e: Exception) { Log.e("Jesr2104", e.message!!) }
+            } catch (e: Exception) {
+                Log.e("Jesr2104", e.message!!)
+                binding.loading.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -165,7 +168,7 @@ class LoginFragment : Fragment(),LogInViewModel.Message {
                         }.executeAsync()
                     }
                 }
-                override fun onCancel() {}
+                override fun onCancel() {binding.loading.visibility = View.INVISIBLE}
                 override fun onError(error: FacebookException?) {
                     Toast.makeText(requireContext(), "${error!!.message}", Toast.LENGTH_SHORT)
                         .show()

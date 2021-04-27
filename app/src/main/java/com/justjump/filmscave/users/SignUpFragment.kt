@@ -128,7 +128,10 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) { signUpViewModel.signUpUserGoogle(this, requireContext(),account, task) }
-            } catch (e: Exception) { Log.e("Jesr2104", e.message!!) }
+            } catch (e: Exception) {
+                Log.e("Jesr2104", e.message!!)
+                binding.loading.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -169,7 +172,7 @@ class SignUpFragment : Fragment(), SignUpViewModel.Message {
                             }.executeAsync()
                     }
                 }
-                override fun onCancel() {}
+                override fun onCancel() {binding.loading.visibility = View.INVISIBLE}
                 override fun onError(error: FacebookException?) {
                     Toast.makeText(requireContext(), "${error!!.message}", Toast.LENGTH_SHORT)
                         .show()
