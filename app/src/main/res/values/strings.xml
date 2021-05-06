@@ -60,5 +60,7 @@
     <string name="button_submit">Submit</string>
     <string name="title_via_email_field">Reset password?</string>
     <string name="icon_email">icon_email</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

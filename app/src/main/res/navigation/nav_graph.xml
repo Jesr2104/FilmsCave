@@ -72,6 +72,9 @@
             app:destination="@id/mainActivity"
             app:popUpTo="@+id/mainActivity"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_home_to_userAreaFragment"
+            app:destination="@id/userAreaFragment" />
 
     </fragment>
 
@@ -89,5 +92,12 @@
             app:popUpToInclusive="true"/>
 
     </fragment>
+
+    <!--  Fragment: UserAreaFragment  -->
+    <fragment
+        android:id="@+id/userAreaFragment"
+        android:name="com.justjump.filmscave.userArea.UserAreaFragment"
+        android:label="fragment_user_area"
+        tools:layout="@layout/fragment_user_area" />
 
 </navigation>
