@@ -12,6 +12,8 @@
     <!--    ====================================   -->
     <color name="main_light_blue">#2196F3</color>
     <color name="main_dark_blue">#2B2D3C</color>
+    <color name="main_dark_status_bar_color">#30313B</color>
+
     <color name="palette_links">#9DADBB</color>
     <color name="palette_black">#FF000000</color>
     <color name="palette_white">#FFFFFFFF</color>

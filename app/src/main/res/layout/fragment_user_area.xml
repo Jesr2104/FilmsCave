@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/status_bar_size"
+    android:fitsSystemWindows="true"
     tools:context=".userArea.UserAreaFragment"
     android:background="@color/main_light_blue">
 
@@ -43,9 +43,9 @@
                 android:id="@+id/circleImageView"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:src="@drawable/ic_profile"
                 app:civ_border_color="@color/palette_white"
                 app:civ_border_overlay="true"
@@ -112,7 +112,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="@dimen/icon_menu_user"
                     android:layout_height="@dimen/icon_menu_user"
-                    android:src="@drawable/ic_test"
+                    android:src="@drawable/ic_option_list"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -169,7 +169,7 @@
                     android:id="@+id/imageView1"
                     android:layout_width="@dimen/icon_menu_user"
                     android:layout_height="@dimen/icon_menu_user"
-                    android:src="@drawable/ic_test"
+                    android:src="@drawable/ic_option_recommended"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -193,7 +193,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:layout_width="250dp"
+                        android:layout_width="220dp"
                         android:layout_height="wrap_content"
                         android:text="Movies, series and personalized lists recommended by your friends."
                         android:textColor="@color/palette_white"
@@ -226,7 +226,7 @@
                     android:id="@+id/imageView2"
                     android:layout_width="@dimen/icon_menu_user"
                     android:layout_height="@dimen/icon_menu_user"
-                    android:src="@drawable/ic_test"
+                    android:src="@drawable/ic_option_friends"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -265,6 +265,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@android:color/transparent"
@@ -282,7 +283,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="@dimen/icon_menu_user"
                     android:layout_height="@dimen/icon_menu_user"
-                    android:src="@drawable/ic_test"
+                    android:src="@drawable/ic_option_setting"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -321,37 +322,38 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardElevation="0dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="5dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
                     android:text="SignOut"
-                    android:layout_marginEnd="10dp"
                     android:textColor="@color/palette_white"
-                    android:textStyle="bold"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/ic_test"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_option_signout"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
