@@ -50,50 +50,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginBottom="55dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="UserName"
-                android:textColor="@color/palette_white"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                tools:ignore="SmallSp" />
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:textColor="@color/palette_white"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                tools:ignore="SmallSp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/materialButton"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:backgroundTint="@color/palette_white"
-                android:text="LogOut"
-                android:textAllCaps="false"
-                android:textColor="@color/main_dark_blue"
-                android:textSize="10sp"
-                app:cornerRadius="15dp" />
-
-        </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -35,25 +35,8 @@ class HomeFragment : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel()::class.java)
         navController = view.findNavController()
 
-        val data = UsersLocalDataSource(RoomDataSource()).getUser(requireContext())
-
-        if (data != null){
-            binding.username.text = data.userName
-            binding.email.text = data.email
-        }
-
         binding.userSetting.setOnClickListener {
             navController.navigate(R.id.action_home_to_userAreaFragment)
-        }
-
-        binding.materialButton.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_mainActivity)
-            UsersLocalDataSource(RoomDataSource()).signOut(requireContext())
-
-            // falta chequear que si es facebook se cierra session de lo contrario podrias lanzar una exception
-            if(true){
-                LoginManager.getInstance().logOut()
-            }
         }
 
         // It worked a bit strange but it works so that when you are logged in and you give it back, it does not return to the window but the app closes
