@@ -3,4 +3,5 @@
     <dimen name="circle_radius">30dp</dimen>
     <dimen name="status_bar_size">24dp</dimen>
     <dimen name="icon_menu_user">70dp</dimen>
+    <dimen name="text_size_bigger">30sp</dimen>
 </resources>

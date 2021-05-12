@@ -49,6 +49,26 @@ class UserAreaFragment : Fragment() {
             userAreaViewModel.closeSession(requireContext())
         }
 
+        // Lists
+        binding.cardViewList.setOnClickListener {
+
+        }
+
+        // recommended
+        binding.cardViewRecommended.setOnClickListener {
+
+        }
+
+        // Friends
+        binding.cardViewFriends.setOnClickListener {
+            navController.navigate(R.id.action_userAreaFragment_to_friendsFragment)
+        }
+
+        // Settings
+        binding.cardViewSettings.setOnClickListener {
+
+        }
+
         //********************************************************//
         //          Event to go back
         //********************************************************//

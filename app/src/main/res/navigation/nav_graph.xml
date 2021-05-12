@@ -100,7 +100,15 @@
             app:destination="@id/mainActivity"
             app:popUpTo="@+id/mainActivity"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_userAreaFragment_to_friendsFragment"
+            app:destination="@id/friendsFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/friendsFragment"
+        android:name="com.justjump.filmscave.userArea.FriendsFragment"
+        android:label="fragment_friends"
+        tools:layout="@layout/fragment_friends" />
 
 </navigation>
