@@ -9,11 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.facebook.login.LoginManager
 import com.justjump.filmscave._viewmodel.HomeViewModel
-import com.justjump.filmscave.data.datasources.users.local.UsersLocalDataSource
 import com.justjump.filmscave.databinding.FragmentHomeBinding
-import com.justjump.filmscave.framework.room.users.RoomDataSource
 
 class HomeFragment : Fragment() {
 

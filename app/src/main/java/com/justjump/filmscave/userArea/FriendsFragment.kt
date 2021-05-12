@@ -18,7 +18,7 @@ class FriendsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle? ): View? {
+        savedInstanceState: Bundle? ): View {
 
         binding = FragmentFriendsBinding.inflate(layoutInflater)
         return binding.root

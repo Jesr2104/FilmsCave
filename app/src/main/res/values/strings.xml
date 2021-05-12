@@ -73,5 +73,6 @@
     <string name="message_friends">List with your friends.</string>
     <string name="message_settings">Application options.</string>
     <string name="sign_out">SignOut</string>
+    <string name="friends_menu">Friends menu</string>
 
 </resources>
