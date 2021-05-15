@@ -2,17 +2,19 @@ package com.justjump.filmscave.framework.room.users
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.justjump.filmscave.domain.users.FriendDataModel
+import java.lang.reflect.Array
 
 @Entity
-data class UserRoom (
+data class UserRoom(
     @PrimaryKey
     val email: String,
-    val userName: String,
     val avatar: String,
-    //TODO ("Change structure for room")
+    val userName: String,
+    val date: String,
+    val typeUser: String,
+    val setting: HashMap<String, String>,
+    val friends: ArrayList<FriendDataModel>,
 //    val customsList: String,
-//    val friends: String,
 //    val blockedUsers: String,
-//    val setting: String
-
 )

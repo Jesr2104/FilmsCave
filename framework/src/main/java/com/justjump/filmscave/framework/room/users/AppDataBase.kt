@@ -4,8 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.justjump.filmscave.framework.room._utils.ConverterFriends
+import com.justjump.filmscave.framework.room._utils.ConverterSetting
 
 @Database(entities = [UserRoom::class],version = 1)
+@TypeConverters(ConverterSetting::class, ConverterFriends::class)
 abstract class AppDataBase: RoomDatabase() {
 
     companion object {

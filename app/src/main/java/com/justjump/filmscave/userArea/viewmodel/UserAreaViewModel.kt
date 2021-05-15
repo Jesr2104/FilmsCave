@@ -1,6 +1,7 @@
 package com.justjump.filmscave.userArea.viewmodel
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.facebook.login.LoginManager
@@ -26,6 +27,17 @@ class UserAreaViewModel: ViewModel(){
 
     fun loadUserData(appContext: Context) {
         val data = UsersLocalDataSource(RoomDataSource()).getUser(appContext)
+
+        Toast.makeText(appContext, "${data!!.setting}", Toast.LENGTH_SHORT).show()
+        data.friends.forEach{
+            Toast.makeText(appContext, "Email: ${it.Email}  Usernamer: ${it.Username}", Toast.LENGTH_SHORT).show()
+        }
+
+//        Toast.makeText(appContext, "", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(appContext, "", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(appContext, "", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(appContext, "", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(appContext, "", Toast.LENGTH_SHORT).show()
 
         if (data != null){
             emailValue.value = data.email

@@ -14,9 +14,13 @@ class RoomDataSource : RoomFrameworkDataSource {
         val db = getInstanceDatabase(context)
         //TODO ("Change structure for room")
         val userActive = UserRoom(
-            userStructureDataModel.email,
-            userStructureDataModel.userName,
-            userStructureDataModel.avatar
+            email = userStructureDataModel.email,
+            avatar = userStructureDataModel.avatar,
+            userName = userStructureDataModel.userName,
+            date = userStructureDataModel.date,
+            typeUser = userStructureDataModel.typeUser,
+            setting = userStructureDataModel.setting,
+            friends = userStructureDataModel.friends
         )
 
         // clear any another session active
@@ -36,8 +40,13 @@ class RoomDataSource : RoomFrameworkDataSource {
         //TODO ("Change structure for room")
         if (user != null){
             return UserStructureDataModel(
+                email = user.email,
+                avatar = user.avatar,
                 userName = user.userName,
-                email = user.email
+                date = user.date,
+                typeUser = user.typeUser,
+                setting = user.setting,
+                friends = user.friends
             )
         }
         db.close()
@@ -64,7 +73,6 @@ class RoomDataSource : RoomFrameworkDataSource {
 
         dbDAO.delete()
         db.close()
-
         return true
     }
 }

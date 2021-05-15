@@ -9,11 +9,10 @@ data class UserStructureDataModel(
     var typeUser: String = "",
     val email: String = "",
     val avatar: String = "avatar/default_avatar.svg",
-    val mobileNumber: String = "",
     val date: String = Calendar.getInstance().time.toString(),
-    val friends: ArrayList<String> = java.util.ArrayList<String>(),
+    val friends: ArrayList<FriendDataModel> = arrayListOf(),
     val list: ArrayList<String> = java.util.ArrayList<String>(),
     val blockedUsers: ArrayList<String> = java.util.ArrayList<String>(),
-    val setting: HashMap<String,Any> = HashMap()
+    val setting: HashMap<String,String> = HashMap()
     //TODO ("Change structure for complete definition")
 )

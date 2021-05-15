@@ -49,4 +49,7 @@ dependencies {
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.3.0"
+
+    // gson
+    implementation "com.google.code.gson:gson:2.8.6"
 }

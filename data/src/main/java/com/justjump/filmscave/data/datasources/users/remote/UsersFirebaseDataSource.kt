@@ -3,6 +3,7 @@ package com.justjump.filmscave.data.datasources.users.remote
 import android.util.Log
 import com.google.firebase.FirebaseException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.justjump.filmscave.domain.users.FriendDataModel
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import kotlinx.coroutines.tasks.await
 
@@ -50,7 +51,6 @@ class UsersFirebaseDataSource {
             "avatar" to userStructureDataModel.avatar,
             "date" to userStructureDataModel.date,
             "setting" to setting,
-            "mobileNumber" to userStructureDataModel.mobileNumber,
             "typeUser" to userStructureDataModel.typeUser
         )
 
@@ -75,19 +75,19 @@ class UsersFirebaseDataSource {
     suspend fun getUser(email: String): UserStructureDataModel {
         return try {
             val usersDataFireStore = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).get().await()
+
             //TODO ("Load the complete data for the list of the user")
             // BlockedUsers
             // CustomList
-            // Friends
 
             UserStructureDataModel(
                 userName = getUsername(email),
                 email = usersDataFireStore.get("email") as String,
                 avatar = usersDataFireStore.get("avatar") as String,
                 date = usersDataFireStore.get("date") as String,
-                mobileNumber = usersDataFireStore.get("mobileNumber") as String,
-                setting = usersDataFireStore.get("setting") as HashMap<String, Any>,
-                typeUser = usersDataFireStore.get("typeUser") as String
+                setting = usersDataFireStore.get("setting") as HashMap<String, String>,
+                typeUser = usersDataFireStore.get("typeUser") as String,
+                friends = getFriendsList(email)
             )
         } catch (e: FirebaseException){
             UserStructureDataModel()
@@ -118,15 +118,23 @@ class UsersFirebaseDataSource {
 
     private suspend fun createCustomList(email: String) =
         databaseInstance.collection(COLLECTION_USERS).document(email)
-            .collection("customList").add(
-                hashMapOf(
-                    "nameList" to "",
-                    "descriptions" to "0",
-                    "like" to 0,
-                    "dislike" to 0,
-                    "access" to false
-                )
-            ).await()
+            .collection("customList").add(hashMapOf("nameList" to "", "descriptions" to "0", "like" to 0, "dislike" to 0, "access" to false)).await()
+
+    private suspend fun getFriendsList(email: String): ArrayList<FriendDataModel> {
+        val usersDataFriends = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection("friends").get().await()
+
+        var count = 0
+        val friends: ArrayList<FriendDataModel> = arrayListOf()
+        while (usersDataFriends.size() > count){
+            friends.add(
+                FriendDataModel(
+                    usersDataFriends.documents[count].get("email") as String,
+                    usersDataFriends.documents[count].get("username") as String
+                ))
+            count++
+        }
+        return friends
+    }
 
     //********************************************************//
     //          Functions to create Collections
