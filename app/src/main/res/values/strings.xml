@@ -74,5 +74,7 @@
     <string name="message_settings">Application options.</string>
     <string name="sign_out">SignOut</string>
     <string name="friends_menu">Friends menu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -105,10 +105,25 @@
             app:destination="@id/friendsFragment" />
 
     </fragment>
+
+    <!--  Fragment: FriendsFragment  -->
     <fragment
         android:id="@+id/friendsFragment"
         android:name="com.justjump.filmscave.userArea.FriendsFragment"
         android:label="fragment_friends"
-        tools:layout="@layout/fragment_friends" />
+        tools:layout="@layout/fragment_friends" >
+
+        <action
+            android:id="@+id/action_friendsFragment_to_insertNewFriendFragment"
+            app:destination="@id/insertNewFriendFragment" />
+
+    </fragment>
+
+    <!--  Fragment: InsertNewFriendFragment  -->
+    <fragment
+        android:id="@+id/insertNewFriendFragment"
+        android:name="com.justjump.filmscave.userArea.InsertNewFriendFragment"
+        android:label="fragment_insert_new_friend"
+        tools:layout="@layout/fragment_insert_new_friend" />
 
 </navigation>

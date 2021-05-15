@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".userArea.InsertNewFriendFragment"
+    android:background="@color/main_dark_blue">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/user_header"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/main_light_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_back"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/back"
+                android:textColor="@color/palette_white"
+                android:textStyle="bold"
+                app:icon="@drawable/ic_arrow_back"
+                app:iconTint="@color/palette_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                android:textStyle="bold"
+                android:text="Invite a friend"
+                android:textColor="@color/palette_white"
+                android:textSize="@dimen/text_size_bigger"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_header" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_percent="0.75"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Add your friends to FilmsCave"
+            android:textColor="@color/palette_white"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="You will need their username. Username is not case sensitive. Now enter the username and press the button to send a request."
+            android:textColor="@color/palette_white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintWidth_percent="0.75" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Insert Username or Email"
+            android:textColorHint="@color/palette_white"
+            app:boxCornerRadiusBottomEnd="@dimen/circle_radius"
+            app:boxCornerRadiusBottomStart="@dimen/circle_radius"
+            app:boxCornerRadiusTopEnd="@dimen/circle_radius"
+            app:boxCornerRadiusTopStart="@dimen/circle_radius"
+            app:boxStrokeColor="@color/palette_white"
+            app:boxStrokeWidth="1.5dp"
+            app:hintTextColor="@color/palette_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            app:layout_constraintWidth_percent="0.75">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/palette_white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#BB8EFF"
+            android:text="Invite friend"
+            android:textAllCaps="false"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
