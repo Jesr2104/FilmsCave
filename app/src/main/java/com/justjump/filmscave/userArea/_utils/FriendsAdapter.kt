@@ -1,4 +1,4 @@
-package com.justjump.filmscave.userArea
+package com.justjump.filmscave.userArea._utils
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

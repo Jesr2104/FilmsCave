@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/blocked_users"
+        android:contentDescription=""
+        android:title="Blocked users" />
+
+    <item
+        android:id="@+id/friend_requests"
+        android:contentDescription=""
+        android:title="Friend requests" />
+
+</menu>

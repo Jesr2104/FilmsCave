@@ -116,6 +116,12 @@
         <action
             android:id="@+id/action_friendsFragment_to_insertNewFriendFragment"
             app:destination="@id/insertNewFriendFragment" />
+        <action
+            android:id="@+id/action_friendsFragment_to_friendRequestsFragment"
+            app:destination="@id/friendRequestsFragment" />
+        <action
+            android:id="@+id/action_friendsFragment_to_blockedUsersFragment"
+            app:destination="@id/blockedUsersFragment" />
 
     </fragment>
 
@@ -125,5 +131,19 @@
         android:name="com.justjump.filmscave.userArea.InsertNewFriendFragment"
         android:label="fragment_insert_new_friend"
         tools:layout="@layout/fragment_insert_new_friend" />
+
+    <!--  Fragment: BlockedUsersFragment  -->
+    <fragment
+        android:id="@+id/blockedUsersFragment"
+        android:name="com.justjump.filmscave.userArea.BlockedUsersFragment"
+        android:label="fragment_blocked_users"
+        tools:layout="@layout/fragment_blocked_users" />
+
+    <!--  Fragment: FriendRequestsFragment  -->
+    <fragment
+        android:id="@+id/friendRequestsFragment"
+        android:name="com.justjump.filmscave.userArea.FriendRequestsFragment"
+        android:label="fragment_friend_requests"
+        tools:layout="@layout/fragment_friend_requests" />
 
 </navigation>
