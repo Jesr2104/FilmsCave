@@ -6,13 +6,26 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.justjump.filmscave.domain.users.FriendDataModel
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import kotlinx.coroutines.tasks.await
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 @Suppress("UNCHECKED_CAST")
 class UsersFirebaseDataSource {
 
     companion object{
-        const val COLLECTION_USERS = "users"
-        const val COLLECTION_USERNAME = "usernames"
+        private const val COLLECTION_USERS = "users"
+        private const val COLLECTION_USERNAME = "usernames"
+
+        private const val COLLECTION_FRIENDS = "friends"
+        private const val COLLECTION_CUSTOM_LIST = "customList"
+        private const val COLLECTION_BLOCKED_USERS = "blockedUsers"
+        private const val COLLECTION_INVITATIONS_FRIENDS = "friendRequests"
+
+        private const val INFO_SUCCESSFUL = 0
+        private const val INFO_USER_NOT_EXIST = 1
+        private const val INFO_REQUEST_ALREADY_DONE = 100
+
     }
 
     // instance of the firebase to implement all the solutions
@@ -21,8 +34,8 @@ class UsersFirebaseDataSource {
     suspend fun checkUserName(Username: String): Boolean {
         var usernameUnique = true
         return try {
-            val a = databaseInstance.collection(COLLECTION_USERNAME).get().await()
-            for (item in  a.documents) {
+            val usernameList = databaseInstance.collection(COLLECTION_USERNAME).get().await()
+            for (item in  usernameList.documents) {
                 if (item.get("username").toString().trim().equals(Username.trim(), ignoreCase = true)){
                     usernameUnique = false
                 }
@@ -94,6 +107,28 @@ class UsersFirebaseDataSource {
         }
     }
 
+    suspend fun inviteFriend(friend: String, userStructure: UserStructureDataModel): Int {
+        val friendDataModel = FriendDataModel()
+        var result: Boolean
+        try {
+            val usernameList = databaseInstance.collection(COLLECTION_USERNAME).get().await()
+            for (item in  usernameList.documents) {
+                if (item.get("username").toString().trim().lowercase() == friend.lowercase()){
+                    friendDataModel.Username = item.get("username").toString()
+                    friendDataModel.Email = item.id
+
+                    // create the user invitation
+                    result = createFriendInvitation(friendDataModel, userStructure)
+                    return if (!result) { INFO_REQUEST_ALREADY_DONE }
+                    else { INFO_SUCCESSFUL }
+                }
+            }
+        } catch (e: Exception){
+            // if missing you capture the exception
+        }
+        return INFO_USER_NOT_EXIST
+    }
+
     fun removeUser(){
         //TODO ("implement the function to delete user from firebase")
     }
@@ -110,18 +145,47 @@ class UsersFirebaseDataSource {
 
     private suspend fun createFriendsList(email: String) =
         databaseInstance.collection(COLLECTION_USERS).document(email)
-            .collection("friends").add(hashMapOf("username" to "", "email" to "")).await()
+            .collection(COLLECTION_FRIENDS).add(hashMapOf("username" to "", "email" to "")).await()
 
     private suspend fun createBlockedUsers(email: String) =
         databaseInstance.collection(COLLECTION_USERS).document(email)
-            .collection("blockedUsers").add(hashMapOf("username" to "", "email" to "")).await()
+            .collection(COLLECTION_BLOCKED_USERS).add(hashMapOf("username" to "", "email" to "")).await()
 
     private suspend fun createCustomList(email: String) =
         databaseInstance.collection(COLLECTION_USERS).document(email)
-            .collection("customList").add(hashMapOf("nameList" to "", "descriptions" to "0", "like" to 0, "dislike" to 0, "access" to false)).await()
+            .collection(COLLECTION_CUSTOM_LIST).add(hashMapOf("nameList" to "", "descriptions" to "0", "like" to 0, "dislike" to 0, "access" to false)).await()
+
+    private suspend fun createFriendInvitation(friend: FriendDataModel, userStructure: UserStructureDataModel): Boolean{
+        // user information
+        val userInvitation = hashMapOf(
+            "username" to userStructure.userName,
+            "email" to userStructure.email,
+            "date" to Calendar.getInstance().time.toString()
+        )
+
+        val requestList = databaseInstance.collection(COLLECTION_USERS).document(friend.Email).collection(
+            COLLECTION_INVITATIONS_FRIENDS).get().await()
+
+        // if exist is true: you don't have previous friend request
+        var exist = true
+        for (item in  requestList.documents) {
+            if (item.get("email").toString().trim() == userStructure.email){
+                // if you fiend the email, it's because you have a previous friend request and you don't need to send a new one
+                exist = false
+            }
+        }
+
+        if (exist){
+            databaseInstance.collection(COLLECTION_USERS).document(friend.Email)
+                .collection(COLLECTION_INVITATIONS_FRIENDS).add(userInvitation).await()
+            return true
+        }
+        return false
+    }
 
     private suspend fun getFriendsList(email: String): ArrayList<FriendDataModel> {
-        val usersDataFriends = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection("friends").get().await()
+        val usersDataFriends = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection(
+            COLLECTION_FRIENDS).get().await()
 
         var count = 0
         val friends: ArrayList<FriendDataModel> = arrayListOf()

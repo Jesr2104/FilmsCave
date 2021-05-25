@@ -100,6 +100,7 @@
             app:destination="@id/mainActivity"
             app:popUpTo="@+id/mainActivity"
             app:popUpToInclusive="true"/>
+
         <action
             android:id="@+id/action_userAreaFragment_to_friendsFragment"
             app:destination="@id/friendsFragment" />
@@ -115,7 +116,7 @@
 
         <action
             android:id="@+id/action_friendsFragment_to_insertNewFriendFragment"
-            app:destination="@id/insertNewFriendFragment" />
+            app:destination="@id/inviteFriendFragment" />
         <action
             android:id="@+id/action_friendsFragment_to_friendRequestsFragment"
             app:destination="@id/friendRequestsFragment" />
@@ -127,10 +128,18 @@
 
     <!--  Fragment: InsertNewFriendFragment  -->
     <fragment
-        android:id="@+id/insertNewFriendFragment"
-        android:name="com.justjump.filmscave.userArea.InsertNewFriendFragment"
-        android:label="fragment_insert_new_friend"
-        tools:layout="@layout/fragment_insert_new_friend" />
+        android:id="@+id/inviteFriendFragment"
+        android:name="com.justjump.filmscave.userArea.InviteFriendFragment"
+        android:label="fragment_invite_friend"
+        tools:layout="@layout/fragment_invite_friend" >
+
+        <action
+            android:id="@+id/action_inviteFriendFragment_to_friendsFragment"
+            app:destination="@id/friendsFragment"
+            app:popUpTo="@id/friendsFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
 
     <!--  Fragment: BlockedUsersFragment  -->
     <fragment

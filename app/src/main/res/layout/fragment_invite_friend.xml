@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".userArea.InsertNewFriendFragment"
+    tools:context=".userArea.InviteFriendFragment"
     android:background="@color/main_dark_blue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +46,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginBottom="15dp"
                 android:textStyle="bold"
-                android:text="Invite a friend"
+                android:text="@string/invite_a_friend"
                 android:textColor="@color/palette_white"
                 android:textSize="@dimen/text_size_bigger"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,6 +59,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="20dp"
+            android:contentDescription="@string/invite_a_friend"
             android:src="@drawable/ic_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Add your friends to FilmsCave"
+            android:text="@string/title_add_friends"
             android:textColor="@color/palette_white"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -84,7 +85,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="You will need their username. Username is not case sensitive. Now enter the username and press the button to send a request."
+            android:text="@string/message_info_to_send_invitation"
             android:textColor="@color/palette_white"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -93,12 +94,12 @@
             app:layout_constraintWidth_percent="0.75" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/textInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Insert Username or Email"
+            android:hint="@string/insert_username"
             android:textColorHint="@color/palette_white"
             app:boxCornerRadiusBottomEnd="@dimen/circle_radius"
             app:boxCornerRadiusBottomStart="@dimen/circle_radius"
@@ -113,6 +114,7 @@
             app:layout_constraintWidth_percent="0.75">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/data_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/palette_white"
@@ -122,11 +124,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/invite_friend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:backgroundTint="#BB8EFF"
-            android:text="Invite friend"
+            android:text="@string/invite_friend"
             android:textAllCaps="false"
             app:cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="@+id/textView2"

@@ -74,7 +74,19 @@
     <string name="message_settings">Application options.</string>
     <string name="sign_out">SignOut</string>
     <string name="friends_menu">Friends menu</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--    ===========================================   -->
+    <!--    ====    Text: Invite friend            ====   -->
+    <!--    ===========================================   -->
+    <string name="title_add_friends">Add your friends to FilmsCave</string>
+    <string name="message_info_to_send_invitation">You will need their username. Username is not case sensitive. Now enter the username and press the button to send a request.</string>
+    <string name="insert_username">Insert username</string>
+    <string name="invite_friend">Invite friend</string>
+    <string name="invite_a_friend">Invite a friend</string>
+    <string name="cero">se ha enviado la invitacion correctamente</string>
+    <string name="uno">el nombre de usuario prosiblemente no existe</string>
+    <string name="cien">la invitacion ya ha sido enviada previamente</string>
+    <string name="username_empty">Username is empty</string>
 
 </resources>
