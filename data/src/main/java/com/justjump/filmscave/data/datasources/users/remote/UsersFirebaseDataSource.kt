@@ -107,7 +107,7 @@ class UsersFirebaseDataSource {
         }
     }
 
-    suspend fun inviteFriend(friend: String, userStructure: UserStructureDataModel): Int {
+    suspend fun inviteFriend(friend: String, userStructure: FriendDataModel): Int {
         val friendDataModel = FriendDataModel()
         var result: Boolean
         try {
@@ -155,11 +155,11 @@ class UsersFirebaseDataSource {
         databaseInstance.collection(COLLECTION_USERS).document(email)
             .collection(COLLECTION_CUSTOM_LIST).add(hashMapOf("nameList" to "", "descriptions" to "0", "like" to 0, "dislike" to 0, "access" to false)).await()
 
-    private suspend fun createFriendInvitation(friend: FriendDataModel, userStructure: UserStructureDataModel): Boolean{
+    private suspend fun createFriendInvitation(friend: FriendDataModel, userStructure: FriendDataModel): Boolean{
         // user information
         val userInvitation = hashMapOf(
-            "username" to userStructure.userName,
-            "email" to userStructure.email,
+            "username" to userStructure.Username,
+            "email" to userStructure.Email,
             "date" to Calendar.getInstance().time.toString()
         )
 
@@ -169,7 +169,7 @@ class UsersFirebaseDataSource {
         // if exist is true: you don't have previous friend request
         var exist = true
         for (item in  requestList.documents) {
-            if (item.get("email").toString().trim() == userStructure.email){
+            if (item.get("email").toString().trim() == userStructure.Email){
                 // if you fiend the email, it's because you have a previous friend request and you don't need to send a new one
                 exist = false
             }

@@ -17,5 +17,7 @@
     <color name="palette_black">#FF000000</color>
     <color name="palette_white">#FFFFFFFF</color>
     <color name="grey_text_color">#ACADBD</color>
+    <color name="color_accent">#FF3E6F</color>
+
 
 </resources>

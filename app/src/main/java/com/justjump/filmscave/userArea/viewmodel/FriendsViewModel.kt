@@ -11,4 +11,10 @@ class FriendsViewModel: ViewModel() {
     fun getFriends(appContext: Context): ArrayList<FriendDataModel> {
         return UsersLocalDataSource(RoomDataSource()).getUser(appContext)!!.friends
     }
+
+    fun getFriendsRequest(): Boolean{
+
+        // check for the friends request
+        return true
+    }
 }

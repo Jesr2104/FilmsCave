@@ -36,8 +36,13 @@ class InviteFriendFragment : Fragment(), InviteFriendViewModel.Message {
 
         binding.inviteFriend.setOnClickListener{
             if (binding.dataUserName.text!!.isNotEmpty()){
-                inviteFriendViewModel.userNameValue.value = binding.dataUserName.text.toString().trim()
-                inviteFriendViewModel.inviteFriend(this)
+                val thisUser = inviteFriendViewModel.getMyUsername(requireContext())
+                if (thisUser.Username != binding.dataUserName.text.toString().trim()) {
+                    inviteFriendViewModel.userNameValue.value = binding.dataUserName.text.toString().trim()
+                    inviteFriendViewModel.inviteFriend(this, thisUser)
+                } else {
+                    Toast.makeText(requireContext(), getString(R.string.invite_yousetf), Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(requireContext(), getString(R.string.username_empty), Toast.LENGTH_SHORT).show()
             }

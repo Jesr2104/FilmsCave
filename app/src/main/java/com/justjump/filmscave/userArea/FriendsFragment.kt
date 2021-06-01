@@ -21,6 +21,7 @@ class FriendsFragment : Fragment() {
     private lateinit var binding: FragmentFriendsBinding
     private lateinit var navController: NavController
     private lateinit var friendsViewModel: FriendsViewModel
+    private var numero = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +41,13 @@ class FriendsFragment : Fragment() {
         // get friends and load it on the adapter
         binding.recyclerviewFriendList.adapter = FriendsAdapter(friendsViewModel.getFriends(requireContext()))
 
+        // check for friends request
+        if (friendsViewModel.getFriendsRequest()){
+
+        } else {
+
+        }
+
         // show POPUP menu for: (Sent, Received and Blocked users)
         fun showPopupMenu(view: View){
             val popupMenu = PopupMenu(requireContext(),view)
@@ -54,8 +62,20 @@ class FriendsFragment : Fragment() {
             popupMenu.show()
         }
 
-        binding.menuFriends.setOnClickListener {
+        binding.menuFriends.iconMenuNotifications.setOnClickListener {
             showPopupMenu(it)
+        }
+
+        binding.test.setOnClickListener {
+
+            binding.menuFriends.notification.visibility = View.VISIBLE
+            numero += 1
+            if (numero > 9) {
+                binding.menuFriends.numberNotification.text = "+"
+            } else {
+                binding.menuFriends.numberNotification.text = numero.toString()
+            }
+
         }
 
         // insert new friend
