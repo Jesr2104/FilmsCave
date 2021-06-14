@@ -25,7 +25,6 @@ class UsersFirebaseDataSource {
         private const val INFO_SUCCESSFUL = 0
         private const val INFO_USER_NOT_EXIST = 1
         private const val INFO_REQUEST_ALREADY_DONE = 100
-
     }
 
     // instance of the firebase to implement all the solutions
@@ -127,6 +126,13 @@ class UsersFirebaseDataSource {
             // if missing you capture the exception
         }
         return INFO_USER_NOT_EXIST
+    }
+
+    suspend fun getFriendsRequestNumbers(email: String):Int {
+        val numFriendsRequest = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection(
+            COLLECTION_INVITATIONS_FRIENDS).get().await()
+
+        return numFriendsRequest.size()
     }
 
     fun removeUser(){

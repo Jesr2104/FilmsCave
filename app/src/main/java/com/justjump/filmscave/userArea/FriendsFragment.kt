@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -42,40 +42,12 @@ class FriendsFragment : Fragment() {
         binding.recyclerviewFriendList.adapter = FriendsAdapter(friendsViewModel.getFriends(requireContext()))
 
         // check for friends request
-        if (friendsViewModel.getFriendsRequest()){
-
-        } else {
-
-        }
-
-        // show POPUP menu for: (Sent, Received and Blocked users)
-        fun showPopupMenu(view: View){
-            val popupMenu = PopupMenu(requireContext(),view)
-            popupMenu.inflate(R.menu.friends_menu)
-            popupMenu.setOnMenuItemClickListener{
-                when(it.title) {
-                    "Blocked users" -> { navController.navigate(R.id.action_friendsFragment_to_blockedUsersFragment) }
-                    "Friend requests" -> { navController.navigate(R.id.action_friendsFragment_to_friendRequestsFragment) }
-                }
-                false
-            }
-            popupMenu.show()
-        }
+        friendsViewModel.getNumFriendsRequest()
+        val myObserver = Observer<Int> {loadNotificationFriendsRequestNumber(friendsViewModel.numFriendsRequest.value!!.toInt())}
+        friendsViewModel.numFriendsRequest.observe(viewLifecycleOwner, myObserver)
 
         binding.menuFriends.iconMenuNotifications.setOnClickListener {
             showPopupMenu(it)
-        }
-
-        binding.test.setOnClickListener {
-
-            binding.menuFriends.notification.visibility = View.VISIBLE
-            numero += 1
-            if (numero > 9) {
-                binding.menuFriends.numberNotification.text = "+"
-            } else {
-                binding.menuFriends.numberNotification.text = numero.toString()
-            }
-
         }
 
         // insert new friend
@@ -89,6 +61,32 @@ class FriendsFragment : Fragment() {
         binding.buttonBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
+    }
+
+    fun loadNotificationFriendsRequestNumber(friendsRequestNumber: Int){
+        when(friendsRequestNumber){
+            0 ->{  binding.menuFriends.notification.visibility = View.INVISIBLE }
+            1,2,3,4,5,6,7,8,9 -> {
+                binding.menuFriends.notification.visibility = View.VISIBLE
+                binding.menuFriends.numberNotification.text = friendsRequestNumber.toString() }
+            else -> {
+                binding.menuFriends.notification.visibility = View.VISIBLE
+                binding.menuFriends.numberNotification.text = "+" }
+        }
+    }
+
+    // show POPUP menu for: (Sent, Received and Blocked users)
+    private fun showPopupMenu(view: View){
+        val popupMenu = PopupMenu(requireContext(),view)
+        popupMenu.inflate(R.menu.friends_menu)
+        popupMenu.setOnMenuItemClickListener{
+            when(it.title) {
+                "Blocked users" -> { navController.navigate(R.id.action_friendsFragment_to_blockedUsersFragment) }
+                "Friend requests" -> { navController.navigate(R.id.action_friendsFragment_to_friendRequestsFragment) }
+            }
+            false
+        }
+        popupMenu.show()
     }
 
     override fun onDestroy() {
