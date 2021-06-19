@@ -3,6 +3,7 @@ package com.justjump.filmscave.data.datasources.users.remote
 import android.util.Log
 import com.google.firebase.FirebaseException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.justjump.filmscave.domain.users.FriendDataModel
 import com.justjump.filmscave.domain.users.UserStructureDataModel
 import kotlinx.coroutines.tasks.await
@@ -133,6 +134,21 @@ class UsersFirebaseDataSource {
             COLLECTION_INVITATIONS_FRIENDS).get().await()
 
         return numFriendsRequest.size()
+    }
+
+    suspend fun getFriendsRequest(email: String): ArrayList<FriendDataModel> {
+        val myFriendRequests: ArrayList<FriendDataModel> = arrayListOf()
+        val numFriendsRequest = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection(
+            COLLECTION_INVITATIONS_FRIENDS).get().await()
+
+        for(item in numFriendsRequest.documents){
+            myFriendRequests.add(FriendDataModel(
+                item.get("email").toString(),
+                item.get("username").toString(),
+                item.get("date").toString()))
+        }
+
+        return myFriendRequests
     }
 
     fun removeUser(){

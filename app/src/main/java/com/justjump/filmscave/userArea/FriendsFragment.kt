@@ -42,7 +42,7 @@ class FriendsFragment : Fragment() {
         binding.recyclerviewFriendList.adapter = FriendsAdapter(friendsViewModel.getFriends(requireContext()))
 
         // check for friends request
-        friendsViewModel.getNumFriendsRequest()
+        friendsViewModel.getNumFriendsRequest(requireContext())
         val myObserver = Observer<Int> {loadNotificationFriendsRequestNumber(friendsViewModel.numFriendsRequest.value!!.toInt())}
         friendsViewModel.numFriendsRequest.observe(viewLifecycleOwner, myObserver)
 
@@ -63,7 +63,7 @@ class FriendsFragment : Fragment() {
         }
     }
 
-    fun loadNotificationFriendsRequestNumber(friendsRequestNumber: Int){
+    private fun loadNotificationFriendsRequestNumber(friendsRequestNumber: Int){
         when(friendsRequestNumber){
             0 ->{  binding.menuFriends.notification.visibility = View.INVISIBLE }
             1,2,3,4,5,6,7,8,9 -> {

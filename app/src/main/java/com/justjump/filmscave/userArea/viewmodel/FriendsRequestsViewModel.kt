@@ -11,17 +11,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class FriendsViewModel : ViewModel() {
+class FriendsRequestsViewModel : ViewModel() {
 
-    var numFriendsRequest = MutableLiveData<Int>()
+    var friendsRequestList = MutableLiveData<ArrayList<FriendDataModel>>()
 
-    fun getFriends(appContext: Context): ArrayList<FriendDataModel> {
-        return UsersLocalDataSource(RoomDataSource()).getUser(appContext)!!.friends
-    }
-
-    fun getNumFriendsRequest(appContext: Context) {
+    fun getFriendsRequest(appContext: Context) {
         GlobalScope.launch(Dispatchers.Main){
-            numFriendsRequest.value =  UsersFirebaseDataSource().getFriendsRequestNumbers(
+            friendsRequestList.value =  UsersFirebaseDataSource().getFriendsRequest(
                 UsersLocalDataSource(RoomDataSource()).getUser(appContext)!!.email)
         }
     }
