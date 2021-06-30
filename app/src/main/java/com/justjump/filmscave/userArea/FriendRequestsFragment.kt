@@ -16,7 +16,7 @@ import com.justjump.filmscave.domain.users.FriendDataModel
 import com.justjump.filmscave.userArea._utils.FriendsRequestsAdapter
 import com.justjump.filmscave.userArea.viewmodel.FriendsRequestsViewModel
 
-class FriendRequestsFragment : Fragment() {
+class FriendRequestsFragment : Fragment(), FriendsRequestsAdapter.RequestClickListener {
 
     private lateinit var binding: FragmentFriendRequestsBinding
     private lateinit var navController: NavController
@@ -38,7 +38,7 @@ class FriendRequestsFragment : Fragment() {
 
         val myObserver = Observer<ArrayList<FriendDataModel>> {
             // get the friends requests and load it on adapter
-            binding.recyclerviewFriendRequestsList.adapter = FriendsRequestsAdapter(it)
+            binding.recyclerviewFriendRequestsList.adapter = FriendsRequestsAdapter(it, this)
         }
 
         friendsRequestViewModel.getFriendsRequest(requireContext())
@@ -51,4 +51,17 @@ class FriendRequestsFragment : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
+
+    override fun confirmRequest(itemPosition: Int) {
+        Toast.makeText(requireContext(), "actualizar", Toast.LENGTH_SHORT).show()
+        binding.recyclerviewFriendRequestsList.adapter!!.notifyItemRemoved(itemPosition)
+        // mission the part to confirm the request on the server
+        //  1. add the friend en both users to do a connect both users
+    }
+
+    override fun removeRequest(itemPosition: Int) {
+        TODO("Not yet implemented")
+
+    }
+
 }
