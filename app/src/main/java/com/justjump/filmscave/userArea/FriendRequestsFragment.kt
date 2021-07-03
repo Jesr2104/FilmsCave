@@ -1,16 +1,16 @@
 package com.justjump.filmscave.userArea
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.justjump.filmscave.R
 import com.justjump.filmscave.databinding.FragmentFriendRequestsBinding
 import com.justjump.filmscave.domain.users.FriendDataModel
 import com.justjump.filmscave.userArea._utils.FriendsRequestsAdapter
@@ -53,15 +53,47 @@ class FriendRequestsFragment : Fragment(), FriendsRequestsAdapter.RequestClickLi
     }
 
     override fun confirmRequest(itemPosition: Int) {
-        Toast.makeText(requireContext(), "actualizar", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.confirm_request), Toast.LENGTH_SHORT).show()
         binding.recyclerviewFriendRequestsList.adapter!!.notifyItemRemoved(itemPosition)
         // mission the part to confirm the request on the server
         //  1. add the friend en both users to do a connect both users
     }
 
     override fun removeRequest(itemPosition: Int) {
-        TODO("Not yet implemented")
+        val checkRemove = Observer<Boolean> {
+            if (it) {
+                Toast.makeText(requireContext(), getString(R.string.remove_request), Toast.LENGTH_SHORT).show()
+                binding.recyclerviewFriendRequestsList.adapter!!.notifyItemRemoved(itemPosition)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
+            }
+        }
 
+        friendsRequestViewModel.removeFriendRequest()
+        friendsRequestViewModel.checkForRemove.observe(viewLifecycleOwner, checkRemove)
+
+
+
+
+
+
+
+
+
+
+
+
+//        if (friendsRequestViewModel.removeFriendRequest()) {
+//            //friendsRequestViewModel.removeFriendRequest()
+//            Toast.makeText(requireContext(), getString(R.string.remove_request), Toast.LENGTH_SHORT).show()
+//            binding.recyclerviewFriendRequestsList.adapter!!.notifyItemRemoved(itemPosition)
+//        } else {
+//            Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
+//        }
+
+
+
+        // mission the part to confirm the request on the server
+        //  1. add the friend en both users to do a connect both users
     }
-
 }

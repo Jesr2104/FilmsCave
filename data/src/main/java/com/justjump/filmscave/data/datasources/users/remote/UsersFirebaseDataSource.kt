@@ -151,6 +151,29 @@ class UsersFirebaseDataSource {
         return myFriendRequests
     }
 
+    suspend fun removeFriendRequest(email: String, friendRequest: String): Boolean {
+        var result = false
+        val numFriendsRequest = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection(
+            COLLECTION_INVITATIONS_FRIENDS).get().await()
+
+        for(item in numFriendsRequest.documents){
+            if (item.get("email").toString().trim() == friendRequest.trim()) {
+                val ref = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection(COLLECTION_INVITATIONS_FRIENDS).document(item.id)
+                ref.delete()
+                    .addOnSuccessListener { result = true}
+                    .addOnFailureListener { Log.e("Jesr2104", "Error deleting document", it)}
+                    .await()
+            }
+            // falta
+            // falta
+            // falta
+            // falta
+            // falta
+            // falta
+        }
+        return result
+    }
+
     fun removeUser(){
         //TODO ("implement the function to delete user from firebase")
     }

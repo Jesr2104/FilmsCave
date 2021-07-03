@@ -14,11 +14,20 @@ import kotlinx.coroutines.launch
 class FriendsRequestsViewModel : ViewModel() {
 
     var friendsRequestList = MutableLiveData<ArrayList<FriendDataModel>>()
+    var checkForRemove = MutableLiveData<Boolean>()
 
     fun getFriendsRequest(appContext: Context) {
         GlobalScope.launch(Dispatchers.Main){
             friendsRequestList.value =  UsersFirebaseDataSource().getFriendsRequest(
                 UsersLocalDataSource(RoomDataSource()).getUser(appContext)!!.email)
+        }
+    }
+
+    fun removeFriendRequest() {
+        GlobalScope.launch(Dispatchers.Main){
+            // first parameter mail of the user
+            // second parameter mail of the friend request
+            checkForRemove.value = UsersFirebaseDataSource().removeFriendRequest("jjsotoramos@hotmail.com","ttest@test.com")
         }
     }
 }

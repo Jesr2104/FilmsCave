@@ -89,5 +89,8 @@
     <string name="cien">la invitacion ya ha sido enviada previamente</string>
     <string name="username_empty">Username is empty</string>
     <string name="invite_yousetf">You can\'t invite yourself</string>
+    <string name="confirm_request">Confirm Request</string>
+    <string name="remove_request">Remove Request</string>
+    <string name="error_occurred">An error has occurred</string>
 
 </resources>

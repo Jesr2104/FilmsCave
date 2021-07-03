@@ -1,6 +1,5 @@
 package com.justjump.filmscave.userArea._utils
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,23 +17,24 @@ class FriendsRequestsAdapter(private val friends: ArrayList<FriendDataModel>, pr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemFriendRequestListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.bind(friends[position],requestInterfaceListener) }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.bind(friends,position,requestInterfaceListener) }
 
     class ViewHolder(private val binding: ItemFriendRequestListBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(friends: FriendDataModel, requestInterfaceListener: RequestClickListener){
-            binding.emailFriend.text = friends.Email
-            binding.usernameFriend.text = friends.Username
-            binding.dateRequest.text = friends.date
+        fun bind(friends: ArrayList<FriendDataModel>, position: Int, requestInterfaceListener: RequestClickListener){
+            binding.emailFriend.text = friends[position].Email
+            binding.usernameFriend.text = friends[position].Username
+            binding.dateRequest.text = friends[position].date
 
+            // event to confirm friend request
             binding.buttonConfirm.setOnClickListener {
-                Log.e("jesr2104","$adapterPosition")
+                friends.removeAt(adapterPosition)
                 requestInterfaceListener.confirmRequest(adapterPosition)
             }
 
+            // event to remove friend request
             binding.buttonRemove.setOnClickListener {
+                friends.removeAt(adapterPosition)
                 requestInterfaceListener.removeRequest(adapterPosition)
-
-
             }
         }
     }
