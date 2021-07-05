@@ -164,14 +164,12 @@ class UsersFirebaseDataSource {
                     .addOnFailureListener { Log.e("Jesr2104", "Error deleting document", it)}
                     .await()
             }
-            // falta
-            // falta
-            // falta
-            // falta
-            // falta
-            // falta
         }
         return result
+    }
+
+    suspend fun confirmFriendRequest(){
+        
     }
 
     fun removeUser(){
