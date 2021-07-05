@@ -59,7 +59,7 @@ class FriendRequestsFragment : Fragment(), FriendsRequestsAdapter.RequestClickLi
         //  1. add the friend en both users to do a connect both users
     }
 
-    override fun removeRequest(itemPosition: Int) {
+    override fun removeRequest(itemPosition: Int, email: String) {
         val checkRemove = Observer<Boolean> {
             if (it) {
                 Toast.makeText(requireContext(), getString(R.string.remove_request), Toast.LENGTH_SHORT).show()
@@ -68,7 +68,7 @@ class FriendRequestsFragment : Fragment(), FriendsRequestsAdapter.RequestClickLi
                 Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
             }
         }
-        friendsRequestViewModel.removeFriendRequest()
+        friendsRequestViewModel.removeFriendRequest(requireContext(), email)
         friendsRequestViewModel.checkForRemove.observe(viewLifecycleOwner, checkRemove)
     }
 }

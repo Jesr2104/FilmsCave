@@ -169,7 +169,7 @@ class UsersFirebaseDataSource {
     }
 
     suspend fun confirmFriendRequest(){
-        
+
     }
 
     fun removeUser(){

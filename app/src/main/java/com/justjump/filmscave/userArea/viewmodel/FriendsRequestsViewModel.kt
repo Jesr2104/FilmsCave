@@ -23,11 +23,13 @@ class FriendsRequestsViewModel : ViewModel() {
         }
     }
 
-    fun removeFriendRequest() {
+    fun removeFriendRequest(appContext: Context, email: String) {
         GlobalScope.launch(Dispatchers.Main){
             // first parameter mail of the user
             // second parameter mail of the friend request
-            checkForRemove.value = UsersFirebaseDataSource().removeFriendRequest("jjsotoramos@hotmail.com","ttest@test.com")
+            checkForRemove.value = UsersFirebaseDataSource().removeFriendRequest(
+                UsersLocalDataSource(RoomDataSource()).getUser(appContext)!!.email,
+                email)
         }
     }
 }

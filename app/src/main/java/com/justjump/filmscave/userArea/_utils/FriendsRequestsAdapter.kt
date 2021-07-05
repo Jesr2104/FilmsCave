@@ -10,7 +10,7 @@ class FriendsRequestsAdapter(private val friends: ArrayList<FriendDataModel>, pr
 
     interface RequestClickListener{
         fun confirmRequest(itemPosition: Int)
-        fun removeRequest(itemPosition: Int)
+        fun removeRequest(itemPosition: Int, email: String)
     }
 
     override fun getItemCount() = friends.size
@@ -34,7 +34,10 @@ class FriendsRequestsAdapter(private val friends: ArrayList<FriendDataModel>, pr
             // event to remove friend request
             binding.buttonRemove.setOnClickListener {
                 friends.removeAt(adapterPosition)
-                requestInterfaceListener.removeRequest(adapterPosition)
+                requestInterfaceListener.removeRequest(
+                    adapterPosition,
+                    binding.emailFriend.text as String
+                )
             }
         }
     }
