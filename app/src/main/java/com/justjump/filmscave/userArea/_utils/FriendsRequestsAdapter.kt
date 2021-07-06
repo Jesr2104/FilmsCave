@@ -9,7 +9,7 @@ import com.justjump.filmscave.domain.users.FriendDataModel
 class FriendsRequestsAdapter(private val friends: ArrayList<FriendDataModel>, private var requestInterfaceListener: RequestClickListener): RecyclerView.Adapter<FriendsRequestsAdapter.ViewHolder>() {
 
     interface RequestClickListener{
-        fun confirmRequest(itemPosition: Int)
+        fun confirmRequest(itemPosition: Int, s: String)
         fun removeRequest(itemPosition: Int, email: String)
     }
 
@@ -28,7 +28,10 @@ class FriendsRequestsAdapter(private val friends: ArrayList<FriendDataModel>, pr
             // event to confirm friend request
             binding.buttonConfirm.setOnClickListener {
                 friends.removeAt(adapterPosition)
-                requestInterfaceListener.confirmRequest(adapterPosition)
+                requestInterfaceListener.confirmRequest(
+                    adapterPosition,
+                    binding.emailFriend.text as String
+                )
             }
 
             // event to remove friend request

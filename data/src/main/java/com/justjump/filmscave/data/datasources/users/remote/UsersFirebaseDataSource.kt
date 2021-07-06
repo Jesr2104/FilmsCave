@@ -168,8 +168,35 @@ class UsersFirebaseDataSource {
         return result
     }
 
-    suspend fun confirmFriendRequest(){
+    suspend fun confirmFriendRequest(email: String, username: String, friendRequest: String): Boolean{
+        var result = false
+        val numFriendsRequest = databaseInstance.collection(COLLECTION_USERS).document(email.trim()).collection(
+            COLLECTION_INVITATIONS_FRIENDS).get().await()
 
+        for(item in numFriendsRequest.documents){
+            if (item.get("email").toString().trim() == friendRequest.trim()) {
+                // first user add to friend list
+                addNewFriend(email,
+                FriendDataModel(
+                    Email = item.get("email").toString(),
+                    Username = item.get("username").toString()
+                ))
+                // second user add to his list to create the connect between both
+                addNewFriend(item.get("email").toString(),
+                    FriendDataModel(
+                        Email = email,
+                        Username = username
+                ))
+                removeFriendRequest(email,item.get("email").toString())
+                result = true
+            }
+        }
+        return result
+    }
+
+    private suspend fun addNewFriend(email: String, newFriend: FriendDataModel){
+        databaseInstance.collection(COLLECTION_USERS).document(email)
+            .collection(COLLECTION_FRIENDS).add(hashMapOf("username" to newFriend.Username, "email" to newFriend.Email)).await()
     }
 
     fun removeUser(){

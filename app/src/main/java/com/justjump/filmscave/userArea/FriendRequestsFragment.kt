@@ -52,11 +52,17 @@ class FriendRequestsFragment : Fragment(), FriendsRequestsAdapter.RequestClickLi
         }
     }
 
-    override fun confirmRequest(itemPosition: Int) {
-        Toast.makeText(requireContext(), getString(R.string.confirm_request), Toast.LENGTH_SHORT).show()
-        binding.recyclerviewFriendRequestsList.adapter!!.notifyItemRemoved(itemPosition)
-        // mission the part to confirm the request on the server
-        //  1. add the friend en both users to do a connect both users
+    override fun confirmRequest(itemPosition: Int, email: String) {
+        val checkConfirm = Observer<Boolean> {
+            if (it) {
+                Toast.makeText(requireContext(), getString(R.string.confirm_request), Toast.LENGTH_SHORT).show()
+                binding.recyclerviewFriendRequestsList.adapter!!.notifyItemRemoved(itemPosition)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show()
+            }
+        }
+        friendsRequestViewModel.confirmFriendRequest(requireContext(), email)
+        friendsRequestViewModel.checkForConfirm.observe(viewLifecycleOwner, checkConfirm)
     }
 
     override fun removeRequest(itemPosition: Int, email: String) {
