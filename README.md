@@ -1,6 +1,6 @@
 # FilmsCave
 
-MovieList is an android application that allows users to create and share their own movie lists, and connect with other movie enthusiasts to discuss and recommend films. The app makes it easy to find and discover new, high-quality movies.
+FilmsCave is an android application that allows users to create and share their own movie lists, and connect with other movie enthusiasts to discuss and recommend films. The app makes it easy to find and discover new, high-quality movies.
 
 ## Technologies
 - Android platform
@@ -15,16 +15,16 @@ MovieList is an android application that allows users to create and share their 
 ## The application is in development
 :triangular_flag_on_post: What are you ready?
 - :white_check_mark: Clean architecture implementation.
-- :white_check_mark: implementation of Dagger 2.
+- :white_check_mark: Implementation of Dagger 2.
 - :white_check_mark: Room DB.
-- :white_check_mark: register with username and password
-- :white_check_mark: Register with Google
-- :white_check_mark: Sign up with Facebook
-- :white_check_mark: login with your record
-- :white_check_mark: user area
+- :white_check_mark: Register with username and password.
+- :white_check_mark: Register with Google.
+- :white_check_mark: Sign up with Facebook.
+- :white_check_mark: Login with your record.
+- :white_check_mark: User area.
 - :white_check_mark: Invite a friend.
-- :white_check_mark: blocked users.
-- :white_check_mark: pending invitations.
+- :white_check_mark: Blocked users.
+- :white_check_mark: Pending invitations.
 - :black_square_button: :hammer: receive a friend request notification.
 - More task...
 
